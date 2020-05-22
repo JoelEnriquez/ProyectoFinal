@@ -95,6 +95,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jButtonEditar.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jButtonEditar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonEditar.setText("EDITAR");
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 570, 210, 80));
 
         jButtonCrear.setBackground(new java.awt.Color(255, 255, 51));
@@ -176,6 +181,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jButtonRankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRankingActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonRankingActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        
+    }//GEN-LAST:event_jButtonEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
