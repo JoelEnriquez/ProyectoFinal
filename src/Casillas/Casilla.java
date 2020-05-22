@@ -8,16 +8,13 @@ public class Casilla {
     
     protected int anchura;
     protected int altura;
-    private int x, y;
     protected String nombreCasilla;
-    protected JLabel casillaLabel;
+    protected int posicionRecorrido;
     protected Ficha fichita;
 
     public Casilla(int anchura, int altura) {
         this.anchura = anchura;
-        this.altura = altura;
-        casillaLabel = new JLabel();
-        casillaLabel.setSize(anchura, altura);      
+        this.altura = altura;  
     }
 
     public String getNombreCasilla() {
@@ -36,27 +33,8 @@ public class Casilla {
         return anchura;
     }
 
-    public JLabel getCasillaLabel() {
-        return casillaLabel;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    
-    
-   
+    public int getPosicionRecorrido() {
+        return posicionRecorrido;
+    }    
+     
 }

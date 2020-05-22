@@ -112,15 +112,13 @@ public class InformacionCasillas extends javax.swing.JDialog {
     private void initComponents() {
 
         textoPropiedadesjLabel = new javax.swing.JLabel();
-        textoPrecioPorServiciojLabel2 = new javax.swing.JLabel();
-        textoPrecioPorEstacionjLabel3 = new javax.swing.JLabel();
+        textoPrecioPorEstacionjLabel = new javax.swing.JLabel();
         textoGruposDeLugarjLabel1 = new javax.swing.JLabel();
         precioCostoEstacionjSpinner = new javax.swing.JSpinner();
         gruposLugarjSpinner = new javax.swing.JSpinner();
         textoTomeTarjetajLabel = new javax.swing.JLabel();
         textoDineroPorVueltajLabel = new javax.swing.JLabel();
         noGruposTomeTarjetajSpinner = new javax.swing.JSpinner();
-        precioCostoServiciojSpinner1 = new javax.swing.JSpinner();
         grupoLugarjComboBox = new javax.swing.JComboBox<>();
         ingresarGruposLugarjTextField = new javax.swing.JTextField();
         aceptarjButton = new javax.swing.JButton();
@@ -139,6 +137,9 @@ public class InformacionCasillas extends javax.swing.JDialog {
         textoColorGrupojLabel = new javax.swing.JLabel();
         seletColorTarjetajButton = new javax.swing.JButton();
         colorSeleccionadoTarjetajPanel = new javax.swing.JPanel();
+        textoCostoUsoEstacionjLabel = new javax.swing.JLabel();
+        costoUsoEstacionjSpinner = new javax.swing.JSpinner();
+        textoGruposPropiedadesjLabel = new javax.swing.JLabel();
         fondoInfoCasillasjLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -150,34 +151,28 @@ public class InformacionCasillas extends javax.swing.JDialog {
 
         textoPropiedadesjLabel.setBackground(new java.awt.Color(204, 204, 255));
         textoPropiedadesjLabel.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        textoPropiedadesjLabel.setForeground(new java.awt.Color(0, 0, 0));
-        textoPropiedadesjLabel.setText("Propiedades");
-        getContentPane().add(textoPropiedadesjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 220, 90));
+        textoPropiedadesjLabel.setForeground(new java.awt.Color(255, 102, 0));
+        textoPropiedadesjLabel.setText("Propiedades Estacion");
+        textoPropiedadesjLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(textoPropiedadesjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 390, 50));
 
-        textoPrecioPorServiciojLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        textoPrecioPorServiciojLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        textoPrecioPorServiciojLabel2.setForeground(new java.awt.Color(198, 38, 38));
-        textoPrecioPorServiciojLabel2.setText("Precio por cada Servicio");
-        textoPrecioPorServiciojLabel2.setBorder(new javax.swing.border.MatteBorder(null));
-        getContentPane().add(textoPrecioPorServiciojLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 290, 40));
-
-        textoPrecioPorEstacionjLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        textoPrecioPorEstacionjLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
-        textoPrecioPorEstacionjLabel3.setForeground(new java.awt.Color(198, 38, 38));
-        textoPrecioPorEstacionjLabel3.setText("Precio por cada Estacion");
-        textoPrecioPorEstacionjLabel3.setBorder(new javax.swing.border.MatteBorder(null));
-        getContentPane().add(textoPrecioPorEstacionjLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 300, 40));
+        textoPrecioPorEstacionjLabel.setBackground(new java.awt.Color(255, 255, 255));
+        textoPrecioPorEstacionjLabel.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
+        textoPrecioPorEstacionjLabel.setForeground(new java.awt.Color(198, 38, 38));
+        textoPrecioPorEstacionjLabel.setText("Precio por cada Estacion");
+        textoPrecioPorEstacionjLabel.setBorder(new javax.swing.border.MatteBorder(null));
+        getContentPane().add(textoPrecioPorEstacionjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 300, 40));
 
         textoGruposDeLugarjLabel1.setBackground(new java.awt.Color(255, 255, 255));
         textoGruposDeLugarjLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
         textoGruposDeLugarjLabel1.setForeground(new java.awt.Color(198, 38, 38));
         textoGruposDeLugarjLabel1.setText("¿Cuantos grupos de lugar?");
         textoGruposDeLugarjLabel1.setBorder(new javax.swing.border.MatteBorder(null));
-        getContentPane().add(textoGruposDeLugarjLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 320, 40));
+        getContentPane().add(textoGruposDeLugarjLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 320, 40));
 
         precioCostoEstacionjSpinner.setFont(new java.awt.Font("Capture it", 1, 24)); // NOI18N
         precioCostoEstacionjSpinner.setModel(new javax.swing.SpinnerNumberModel(200, 1, null, 50));
-        getContentPane().add(precioCostoEstacionjSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, 100, 40));
+        getContentPane().add(precioCostoEstacionjSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 100, 40));
 
         gruposLugarjSpinner.setFont(new java.awt.Font("Capture it", 1, 24)); // NOI18N
         gruposLugarjSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -185,20 +180,21 @@ public class InformacionCasillas extends javax.swing.JDialog {
                 gruposLugarjSpinnerStateChanged(evt);
             }
         });
-        getContentPane().add(gruposLugarjSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, 100, 40));
+        getContentPane().add(gruposLugarjSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 280, 100, 40));
 
         textoTomeTarjetajLabel.setBackground(new java.awt.Color(204, 204, 255));
         textoTomeTarjetajLabel.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        textoTomeTarjetajLabel.setForeground(new java.awt.Color(0, 0, 0));
+        textoTomeTarjetajLabel.setForeground(new java.awt.Color(255, 102, 0));
         textoTomeTarjetajLabel.setText("Toma una tarjeta");
-        getContentPane().add(textoTomeTarjetajLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 300, 90));
+        textoTomeTarjetajLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(textoTomeTarjetajLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 50, 300, 40));
 
         textoDineroPorVueltajLabel.setBackground(new java.awt.Color(255, 255, 255));
         textoDineroPorVueltajLabel.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
         textoDineroPorVueltajLabel.setForeground(new java.awt.Color(198, 38, 38));
         textoDineroPorVueltajLabel.setText("Numero de grupos de tarjeta");
         textoDineroPorVueltajLabel.setBorder(new javax.swing.border.MatteBorder(null));
-        getContentPane().add(textoDineroPorVueltajLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 110, 350, 40));
+        getContentPane().add(textoDineroPorVueltajLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 350, 40));
 
         noGruposTomeTarjetajSpinner.setFont(new java.awt.Font("Capture it", 1, 24)); // NOI18N
         noGruposTomeTarjetajSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -206,11 +202,7 @@ public class InformacionCasillas extends javax.swing.JDialog {
                 noGruposTomeTarjetajSpinnerStateChanged(evt);
             }
         });
-        getContentPane().add(noGruposTomeTarjetajSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 110, 100, 40));
-
-        precioCostoServiciojSpinner1.setFont(new java.awt.Font("Capture it", 1, 24)); // NOI18N
-        precioCostoServiciojSpinner1.setModel(new javax.swing.SpinnerNumberModel(150, 1, null, 50));
-        getContentPane().add(precioCostoServiciojSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 100, 40));
+        getContentPane().add(noGruposTomeTarjetajSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 110, 100, 40));
 
         grupoLugarjComboBox.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         grupoLugarjComboBox.addItemListener(new java.awt.event.ItemListener() {
@@ -218,10 +210,10 @@ public class InformacionCasillas extends javax.swing.JDialog {
                 grupoLugarjComboBoxItemStateChanged(evt);
             }
         });
-        getContentPane().add(grupoLugarjComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 290, 40));
+        getContentPane().add(grupoLugarjComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 290, 40));
 
         ingresarGruposLugarjTextField.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        getContentPane().add(ingresarGruposLugarjTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 290, 40));
+        getContentPane().add(ingresarGruposLugarjTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 290, 40));
 
         aceptarjButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/complete.png"))); // NOI18N
         aceptarjButton.setContentAreaFilled(false);
@@ -254,10 +246,10 @@ public class InformacionCasillas extends javax.swing.JDialog {
                 grupoTarjetajComboBoxItemStateChanged(evt);
             }
         });
-        getContentPane().add(grupoTarjetajComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 180, 290, 40));
+        getContentPane().add(grupoTarjetajComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 290, 40));
 
         ingresarNombresGrupojTextField.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        getContentPane().add(ingresarNombresGrupojTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 240, 290, 40));
+        getContentPane().add(ingresarNombresGrupojTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 220, 290, 40));
 
         añadirGrupoTarjetajButton.setText("Añadir");
         añadirGrupoTarjetajButton.addActionListener(new java.awt.event.ActionListener() {
@@ -265,7 +257,7 @@ public class InformacionCasillas extends javax.swing.JDialog {
                 añadirGrupoTarjetajButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(añadirGrupoTarjetajButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 300, 100, 40));
+        getContentPane().add(añadirGrupoTarjetajButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 270, 100, 40));
 
         borrarGrupoTarjetajButton.setText("Borrar");
         borrarGrupoTarjetajButton.addActionListener(new java.awt.event.ActionListener() {
@@ -273,7 +265,7 @@ public class InformacionCasillas extends javax.swing.JDialog {
                 borrarGrupoTarjetajButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(borrarGrupoTarjetajButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 300, 90, 40));
+        getContentPane().add(borrarGrupoTarjetajButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 270, 90, 40));
 
         textoCasillasDisponiblesjLabel.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         textoCasillasDisponiblesjLabel.setForeground(new java.awt.Color(198, 38, 38));
@@ -288,7 +280,7 @@ public class InformacionCasillas extends javax.swing.JDialog {
         textoNotajLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         textoNotajLabel.setForeground(new java.awt.Color(255, 51, 51));
         textoNotajLabel.setText("<html>Nota: Por cada grupo de lugar creado, se consideran como minimo dos casillas disponibles<html>");
-        getContentPane().add(textoNotajLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 260, 90));
+        getContentPane().add(textoNotajLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 260, 90));
 
         seletColorGrupojButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/paleta-de-color.png"))); // NOI18N
         seletColorGrupojButton.setText("jButton1");
@@ -298,20 +290,20 @@ public class InformacionCasillas extends javax.swing.JDialog {
                 seletColorGrupojButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(seletColorGrupojButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 330, 100, 90));
+        getContentPane().add(seletColorGrupojButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, 100, 90));
 
         textoColorTarjetajLabel.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         textoColorTarjetajLabel.setForeground(new java.awt.Color(255, 0, 0));
         textoColorTarjetajLabel.setText("Color Tarjeta");
-        getContentPane().add(textoColorTarjetajLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 150, 40));
+        getContentPane().add(textoColorTarjetajLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 170, 150, 40));
 
         colorSeleccionadoGrupojPanel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 51, 51)));
-        getContentPane().add(colorSeleccionadoGrupojPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 430, 100, 50));
+        getContentPane().add(colorSeleccionadoGrupojPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, 100, 50));
 
         textoColorGrupojLabel.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         textoColorGrupojLabel.setForeground(new java.awt.Color(255, 0, 0));
         textoColorGrupojLabel.setText("Color Grupo");
-        getContentPane().add(textoColorGrupojLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, 150, 40));
+        getContentPane().add(textoColorGrupojLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, 150, 30));
 
         seletColorTarjetajButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/paleta-de-color.png"))); // NOI18N
         seletColorTarjetajButton.setText("jButton1");
@@ -321,10 +313,28 @@ public class InformacionCasillas extends javax.swing.JDialog {
                 seletColorTarjetajButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(seletColorTarjetajButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 210, 100, 90));
+        getContentPane().add(seletColorTarjetajButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 210, 100, 90));
 
         colorSeleccionadoTarjetajPanel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 51, 51)));
-        getContentPane().add(colorSeleccionadoTarjetajPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 310, 100, 50));
+        getContentPane().add(colorSeleccionadoTarjetajPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 300, 100, 50));
+
+        textoCostoUsoEstacionjLabel.setBackground(new java.awt.Color(255, 255, 255));
+        textoCostoUsoEstacionjLabel.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
+        textoCostoUsoEstacionjLabel.setForeground(new java.awt.Color(198, 38, 38));
+        textoCostoUsoEstacionjLabel.setText("Costo Uso Estacion");
+        textoCostoUsoEstacionjLabel.setBorder(new javax.swing.border.MatteBorder(null));
+        getContentPane().add(textoCostoUsoEstacionjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 300, 40));
+
+        costoUsoEstacionjSpinner.setFont(new java.awt.Font("Capture it", 1, 24)); // NOI18N
+        costoUsoEstacionjSpinner.setModel(new javax.swing.SpinnerNumberModel(25, 1, null, 5));
+        getContentPane().add(costoUsoEstacionjSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 100, 40));
+
+        textoGruposPropiedadesjLabel.setBackground(new java.awt.Color(204, 204, 255));
+        textoGruposPropiedadesjLabel.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        textoGruposPropiedadesjLabel.setForeground(new java.awt.Color(255, 102, 0));
+        textoGruposPropiedadesjLabel.setText("Grupos de Propiedades");
+        textoGruposPropiedadesjLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(textoGruposPropiedadesjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 420, 50));
 
         fondoInfoCasillasjLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Monopoly Sonriendo.png"))); // NOI18N
         fondoInfoCasillasjLabel.setRequestFocusEnabled(false);
@@ -334,22 +344,38 @@ public class InformacionCasillas extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarjButtonActionPerformed
-        if (valorJSpinnerGruposL() == 0) {
-            mensajeError("No hay informacion");
+        if (valorJSpinnerGruposL() == 0 && valorJSpinnerTarjetas()==0) {
+            crearTablero.mensajeError("No hay informacion");
+        }
+        else if(valorJSpinnerGruposL() == 0 || valorJSpinnerTarjetas()==0){
+            crearTablero.mensajeError("Por favor, llene ambos grupos");
+            
         } else if ((valorJSpinnerTarjetas() * 2) + valorJSpinnerGruposL() > casillasDisponibles) {
             mensajeError("Sobrepaso los elementos disponibles. Porfavor,"
                     + " elimine algunos digitos y pruebe de nuevo");
+            
         } else if (auxGrupoLugar < (Integer) gruposLugarjSpinner.getValue()
                 || auxGrupoTarjeta < (Integer) noGruposTomeTarjetajSpinner.getValue()) {
             mensajeError("Campos incompletos. Porfavor completarlos para avanzar");
-        } else {
-            this.setVisible(false);
-            llenarArregloGrupoTarjeta();
+            
+        } else{
+            //Seteo de manejadores y, costo y uso de estacion
             manejadorPropiedades.setGrupoLugar(grupoLugar);
             manejadorPropiedades.setNombresGrupo();
             manejadorPropiedades.setColoresGrupo();
+            
             manejadorTarjeta.setGrupoTarjeta(grupoTarjeta);
+            manejadorTarjeta.setNombresGrupo();
+            manejadorTarjeta.setColoresGrupo();
+            
+            llenarArregloGrupoTarjeta();
+            crearTablero.setCostoPorEstacion((Integer)precioCostoEstacionjSpinner.getValue());
+            crearTablero.setUsoEstacion((Integer)costoUsoEstacionjSpinner.getValue());
+            this.setVisible(false);  
         }
+        
+   
+        
     }//GEN-LAST:event_aceptarjButtonActionPerformed
     /**
      * Agrega elementos al comboBox y arreglo de Colores
@@ -367,7 +393,6 @@ public class InformacionCasillas extends javax.swing.JDialog {
                 ingresarGruposLugarjTextField.setText("");
                 ingresarGruposLugarjTextField.requestFocus();
                 
-                colorSeleccionadoGrupojPanel.setBackground(Color.darkGray);
                 auxGrupoLugar++;
             } else {
                 mensajeError("No has seleccionado, ningun color para el grupo");
@@ -398,8 +423,7 @@ public class InformacionCasillas extends javax.swing.JDialog {
                 //Reinicio eleccion color y su panel
                 ingresarNombresGrupojTextField.setText("");
                 ingresarNombresGrupojTextField.requestFocus();
-                colorTarjetas = null;
-                colorSeleccionadoTarjetajPanel.setBackground(Color.darkGray);
+                
                 auxGrupoTarjeta++;
             } else {
                 mensajeError("No has seleccionado, ningun color para el grupo de tarjetas");
@@ -424,6 +448,7 @@ public class InformacionCasillas extends javax.swing.JDialog {
     }
 
     private void grupoLugarjComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_grupoLugarjComboBoxItemStateChanged
+        //Sincronizacion de ComboBox con TextField
         ingresarGruposLugarjTextField.setText(grupoLugarjComboBox.getSelectedItem().toString());
     }//GEN-LAST:event_grupoLugarjComboBoxItemStateChanged
 
@@ -461,6 +486,7 @@ public class InformacionCasillas extends javax.swing.JDialog {
     }//GEN-LAST:event_noGruposTomeTarjetajSpinnerStateChanged
 
     private void grupoTarjetajComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_grupoTarjetajComboBoxItemStateChanged
+        //Sincronizacion de ComboBox con TextField
         ingresarNombresGrupojTextField.setText(grupoTarjetajComboBox.getSelectedItem().toString());
     }//GEN-LAST:event_grupoTarjetajComboBoxItemStateChanged
 
@@ -491,6 +517,7 @@ public class InformacionCasillas extends javax.swing.JDialog {
     private javax.swing.JButton borrarGrupoTarjetajButton;
     private javax.swing.JPanel colorSeleccionadoGrupojPanel;
     private javax.swing.JPanel colorSeleccionadoTarjetajPanel;
+    private javax.swing.JSpinner costoUsoEstacionjSpinner;
     private javax.swing.JLabel fondoInfoCasillasjLabel;
     private javax.swing.JComboBox<String> grupoLugarjComboBox;
     private javax.swing.JComboBox<String> grupoTarjetajComboBox;
@@ -499,17 +526,17 @@ public class InformacionCasillas extends javax.swing.JDialog {
     private javax.swing.JTextField ingresarNombresGrupojTextField;
     private javax.swing.JSpinner noGruposTomeTarjetajSpinner;
     private javax.swing.JSpinner precioCostoEstacionjSpinner;
-    private javax.swing.JSpinner precioCostoServiciojSpinner1;
     private javax.swing.JButton seletColorGrupojButton;
     private javax.swing.JButton seletColorTarjetajButton;
     private javax.swing.JLabel textoCasillasDisponiblesjLabel;
     private javax.swing.JLabel textoColorGrupojLabel;
     private javax.swing.JLabel textoColorTarjetajLabel;
+    private javax.swing.JLabel textoCostoUsoEstacionjLabel;
     private javax.swing.JLabel textoDineroPorVueltajLabel;
     private javax.swing.JLabel textoGruposDeLugarjLabel1;
+    private javax.swing.JLabel textoGruposPropiedadesjLabel;
     private javax.swing.JLabel textoNotajLabel;
-    private javax.swing.JLabel textoPrecioPorEstacionjLabel3;
-    private javax.swing.JLabel textoPrecioPorServiciojLabel2;
+    private javax.swing.JLabel textoPrecioPorEstacionjLabel;
     private javax.swing.JLabel textoPropiedadesjLabel;
     private javax.swing.JLabel textoTomeTarjetajLabel;
     // End of variables declaration//GEN-END:variables

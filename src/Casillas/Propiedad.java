@@ -9,16 +9,19 @@ public abstract class Propiedad extends Casilla {
     protected String nombrePropiedad;
     protected int precioCompra;
     protected int precioHipoteca;
+    protected int costoEstancia;
     protected int porcentajeHipoteca;
     protected int cantidadDesipotecar;
     protected boolean estadoPropiedad;
     
 
-    public Propiedad(int fila, int columna, String nombrePropiedad, int precioCompra, int porcentajeHipoteca) {
+    public Propiedad(int fila, int columna, String nombrePropiedad,
+            int precioCompra, int porcentajeHipoteca, int costoEstancia) {
         super(fila, columna);
         this.nombrePropiedad = nombrePropiedad;
         this.precioCompra = precioCompra;
         precioHipoteca = precioCompra/2;
+        this.costoEstancia = costoEstancia;
         this.porcentajeHipoteca = porcentajeHipoteca;
         definirCantidadDesipotecar(); 
     }

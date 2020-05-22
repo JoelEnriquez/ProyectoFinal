@@ -12,14 +12,14 @@ package PilasYColas;
 public class Nodo<T> {
 
     private T contenido;
-    private Nodo<T> siguiente;
     private Nodo<T> anterior;
+    private Nodo<T> siguiente;
 
    
-    public Nodo(T contenido, Nodo<T> siguiente, Nodo<T> anterior) {
+    public Nodo(T contenido, Nodo<T> anterior, Nodo<T> siguiente) {
         this.contenido = contenido;
-        this.siguiente = siguiente;
         this.anterior = anterior;
+        this.siguiente = siguiente;
     }
     
     public Nodo(T contenido) {

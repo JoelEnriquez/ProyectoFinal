@@ -1,7 +1,8 @@
 package Juego;
 
+import AdministradorGrupos.GrupoLugar;
 import Casillas.Casilla;
-import PilasYColas.ListaDoblementeEnlazada;
+import PilasYColas.ListaDECircular;
 
 
 public class Tablero {
@@ -9,9 +10,12 @@ public class Tablero {
     private int alto;
     private int ancho;
     private Casilla[][] tablero;
-    private ListaDoblementeEnlazada <Casilla> recorrido;
+    private ListaDECircular <Casilla> recorrido;
+    //private GrupoTarjetas[] Propiedades;
+    //private GrupoLugar[] grupoLugar;
+    //private GrupoTomeTarjetas[] grupoTomeTarjetas;
 
-    public Tablero(int alto, int ancho, Casilla[][] tablero, ListaDoblementeEnlazada<Casilla> recorrido) {
+    public Tablero(int alto, int ancho, Casilla[][] tablero, ListaDECircular<Casilla> recorrido) {
         this.alto = alto;
         this.ancho = ancho;
         this.tablero = tablero;
@@ -42,11 +46,11 @@ public class Tablero {
         this.tablero = tablero;
     }
 
-    public ListaDoblementeEnlazada<Casilla> getRecorrido() {
+    public ListaDECircular<Casilla> getRecorrido() {
         return recorrido;
     }
 
-    public void setRecorrido(ListaDoblementeEnlazada<Casilla> recorrido) {
+    public void setRecorrido(ListaDECircular<Casilla> recorrido) {
         this.recorrido = recorrido;
     }
     

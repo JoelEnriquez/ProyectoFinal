@@ -7,7 +7,6 @@ public class Lugar extends Propiedad{
     private GrupoLugar grupoLugar;
     private int cantidadCasas;
     private int cantidadHoteles;
-    private int costoEstancia;
     private int precioCasa;
     private int precioHotel;
     private int aumentoPorCasa;
@@ -17,9 +16,8 @@ public class Lugar extends Propiedad{
             int precioCasa, int precioHotel, int aumentoPorCasa,
             int aumentoPorHotel,int fila, int columna, String nombrePropiedad,
             int precioCompra, int porcentajeHipoteca) {
-        super(fila, columna, nombrePropiedad, precioCompra, porcentajeHipoteca);
+        super(fila, columna, nombrePropiedad, precioCompra, porcentajeHipoteca, costoEstancia);
         this.grupoLugar = grupoLugar;
-        this.costoEstancia = costoEstancia;
         this.precioCasa = precioCasa;
         this.precioHotel = precioHotel;
         this.aumentoPorCasa = aumentoPorCasa;
@@ -27,9 +25,6 @@ public class Lugar extends Propiedad{
        
     }
 
-
-    
-    
 
     @Override
     public void cobrarRenta() {

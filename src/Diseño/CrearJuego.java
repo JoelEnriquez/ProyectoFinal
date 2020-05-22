@@ -7,7 +7,7 @@ package Diseño;
 
 import Casillas.Casilla;
 import Main.MenuPrincipal;
-import PilasYColas.ListaDoblementeEnlazada;
+import PilasYColas.ListaDECircular;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
@@ -21,7 +21,7 @@ public class CrearJuego extends javax.swing.JFrame {
     private int numeroColumnas;
     private int porcentajeHipoteca;
     private Casilla[][] tablero;
-    private ListaDoblementeEnlazada <Casilla> recorrido;
+    private ListaDECircular <Casilla> recorrido;
     
     
     public CrearJuego() {
@@ -204,7 +204,7 @@ public class CrearJuego extends javax.swing.JFrame {
         ingresarInfojPanel.add(textoNumeroFilasjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 340, 200, 40));
 
         noFilasjSpinner.setFont(new java.awt.Font("Capture it", 1, 24)); // NOI18N
-        noFilasjSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 25, 1));
+        noFilasjSpinner.setModel(new javax.swing.SpinnerNumberModel(2, 2, 25, 1));
         ingresarInfojPanel.add(noFilasjSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 340, 100, 40));
 
         textoNumeroColumnasjLabel1.setBackground(new java.awt.Color(255, 255, 255));

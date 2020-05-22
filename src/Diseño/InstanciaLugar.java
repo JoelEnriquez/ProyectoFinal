@@ -8,8 +8,6 @@ package Diseño;
 import AdministradorGrupos.*;
 import Casillas.Lugar;
 import java.awt.Color;
-import javax.swing.Icon;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,15 +19,16 @@ public class InstanciaLugar extends javax.swing.JDialog {
     private ManejadorPropiedades manejadorPropiedades;
     private String[] gruposPropiedades;
     private Color[] coloresGrupo;
+    private GrupoLugar[] grupoL;
     private Lugar lugar;
     private Color color;
     private int fila;
     private int columna;
     private int porcentajeHipoteca;
-    private Icon warningIcon = new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MonopolyConfundido.png"));
     
 
-    public InstanciaLugar(CrearTablero crearTablero, boolean modal, ManejadorPropiedades manejador, int fila, int columna, int porcentajeHipoteca) {
+    public InstanciaLugar(CrearTablero crearTablero, boolean modal, ManejadorPropiedades manejador,
+            int fila, int columna, int porcentajeHipoteca) {
         super(crearTablero, modal);   
         initComponents();
         this.crearTablero = crearTablero;
@@ -47,15 +46,10 @@ public class InstanciaLugar extends javax.swing.JDialog {
         coloresGrupo = manejadorPropiedades.getColoresGrupo();
         
         grupoLugarjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(gruposPropiedades));
+        colorActualjPanel.setBackground(coloresGrupo[grupoLugarjComboBox.getSelectedIndex()]);
+        grupoL = manejadorPropiedades.getGrupoLugar();
     } 
-    
-    private void mensajeError(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje,
-                "ALERTA", JOptionPane.INFORMATION_MESSAGE, warningIcon);
-    }
 
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,6 +108,11 @@ public class InstanciaLugar extends javax.swing.JDialog {
         grupoLugarjComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 grupoLugarjComboBoxItemStateChanged(evt);
+            }
+        });
+        grupoLugarjComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                grupoLugarjComboBoxActionPerformed(evt);
             }
         });
         getContentPane().add(grupoLugarjComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 290, 40));
@@ -214,14 +213,12 @@ public class InstanciaLugar extends javax.swing.JDialog {
 
     private void aceptarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarjButtonActionPerformed
         if (ingresarNombreLugarjTextField.getText().isEmpty() || colorActualjPanel.getBackground()==null) {
-            mensajeError("Por favor ingrese todos los campos requeridos");
+            crearTablero.mensajeError("Por favor ingrese todos los campos requeridos");
         }
         
         else{
-            String nombreLugar = ingresarNombreLugarjTextField.getText();
-            String grupoPropiedad = grupoLugarjComboBox.getSelectedItem().toString();
-            Color colorGrupo = colorActualjPanel.getBackground();
-            GrupoLugar grupoP = new GrupoLugar(grupoPropiedad, colorGrupo);
+            String nombreLugar = ingresarNombreLugarjTextField.getText().trim();          
+            GrupoLugar grupoLugar = grupoL[grupoLugarjComboBox.getSelectedIndex()];
             int precioPorCasa = (Integer)precioPorCasajSpinner.getValue();
             int precioPorHotel = (Integer)precioPorHoteljSpinner.getValue();
             int aumentoPorCasa = (Integer)aumentoPorCasajSpinner.getValue();
@@ -229,9 +226,10 @@ public class InstanciaLugar extends javax.swing.JDialog {
             int precioCompra = (Integer)precioComprajSpinner.getValue();
             int costoEstancia = (Integer)costoEstanciaSpinner.getValue();
             
-            Lugar lugar = new Lugar(grupoP, costoEstancia, precioPorCasa, precioPorHotel, aumentoPorCasa, aumentoPorHotel,
+            Lugar nuevoLugar = new Lugar(grupoLugar, costoEstancia, precioPorCasa, precioPorHotel, aumentoPorCasa, aumentoPorHotel,
             fila, columna, nombreLugar, precioCompra, porcentajeHipoteca);
-            setLugar(lugar);
+            Color colorGrupo = colorActualjPanel.getBackground();
+            setLugar(nuevoLugar);
             setColor(colorGrupo);
             
             this.setVisible(false);
@@ -261,6 +259,10 @@ public class InstanciaLugar extends javax.swing.JDialog {
     private void ingresarNombreLugarjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarNombreLugarjTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ingresarNombreLugarjTextFieldActionPerformed
+
+    private void grupoLugarjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grupoLugarjComboBoxActionPerformed
+        
+    }//GEN-LAST:event_grupoLugarjComboBoxActionPerformed
 
    
 

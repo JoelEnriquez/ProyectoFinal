@@ -9,9 +9,9 @@ package PilasYColas;
  *
  * @author joel
  */
-public class ListaDoblementeEnlazadaException extends Exception {
+public class ListaDECircularException extends Exception {
 
-    public ListaDoblementeEnlazadaException(String message) {
+    public ListaDECircularException(String message) {
         super(message);
     }
 }

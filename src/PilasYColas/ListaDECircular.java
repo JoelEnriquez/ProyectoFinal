@@ -1,0 +1,199 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package PilasYColas;
+
+/**
+ *
+ * @author joel
+ */
+public class ListaDECircular<T> {
+
+    private Nodo<T> primerNodo;
+    private Nodo<T> ultimoNodo;
+    private int tamañoLista = 0;
+    private int ultimoIndice = -1;
+
+    public ListaDECircular() {
+        primerNodo = null;
+        ultimoNodo = null;
+    }
+
+    public void insertarAlInicio(T contenido) {
+
+        if (esVacia()) {
+            Nodo<T> nuevoNodo = new Nodo<>(contenido);
+            primerNodo = nuevoNodo;
+            ultimoNodo = nuevoNodo;
+            primerNodo.setSiguiente(ultimoNodo);
+            ultimoNodo.setSiguiente(primerNodo);
+            primerNodo.setAnterior(ultimoNodo);
+            ultimoNodo.setAnterior(primerNodo);
+        } else {
+            Nodo<T> nuevoNodo = new Nodo<>(contenido, ultimoNodo, primerNodo);
+            primerNodo.setAnterior(nuevoNodo);
+            ultimoNodo.setSiguiente(nuevoNodo);
+            primerNodo = nuevoNodo;
+        }
+        ultimoIndice++;
+        tamañoLista++;
+    }
+
+    public void insertarAlFinal(T contenido) {
+
+        if (esVacia()) {
+            Nodo<T> nuevoNodo = new Nodo<>(contenido);
+            primerNodo = nuevoNodo;
+            ultimoNodo = nuevoNodo;
+            primerNodo.setSiguiente(ultimoNodo);
+            ultimoNodo.setSiguiente(primerNodo);
+            primerNodo.setAnterior(ultimoNodo);
+            ultimoNodo.setAnterior(primerNodo);
+        } else {
+            Nodo<T> nuevoNodo = new Nodo<>(contenido, ultimoNodo, primerNodo);
+            ultimoNodo.setSiguiente(nuevoNodo);
+            primerNodo.setAnterior(nuevoNodo);
+            ultimoNodo = nuevoNodo;
+        }
+        ultimoIndice++;
+        tamañoLista++;
+    }
+
+    public void eliminarPrimerNodo() throws ListaDECircularException {
+        if (esVacia()) {
+            throw new ListaDECircularException("No hay elementos por eliminar");
+        } else if (primerNodo.equals(ultimoNodo)) {
+            primerNodo = null;
+            ultimoNodo = null;
+        } else {
+            primerNodo = primerNodo.getSiguiente();
+            primerNodo.setAnterior(ultimoNodo);
+            ultimoNodo.setSiguiente(primerNodo);
+        }
+        ultimoIndice--;
+        tamañoLista--;
+
+    }
+
+    public void eliminarUltimoNodo() throws ListaDECircularException {
+        if (esVacia()) {
+            throw new ListaDECircularException("No hay elementos por eliminar");
+        } else if (primerNodo.equals(ultimoNodo)) {
+            primerNodo = null;
+            ultimoNodo = null;
+        } else {
+            ultimoNodo = ultimoNodo.getAnterior();
+            ultimoNodo.setSiguiente(primerNodo);
+            primerNodo.setAnterior(ultimoNodo);
+        }
+        ultimoIndice--;
+        tamañoLista--;
+    }
+
+    public void eliminarPorElemento(T buscado) throws ListaDECircularException {
+        if (esVacia()) {
+            throw new ListaDECircularException("No hay elementos en la lista");
+            
+        } else {
+            
+            Nodo<T> AuxPrimero = primerNodo.getSiguiente();
+            Nodo<T> Anterior = primerNodo;
+
+            if (buscado == primerNodo.getContenido()) {
+                eliminarPrimerNodo();
+            } else if (buscado == ultimoNodo.getContenido()) {
+                eliminarPrimerNodo();
+            } else {
+                while (AuxPrimero.getContenido() != buscado && AuxPrimero.getSiguiente() != primerNodo) {
+                    AuxPrimero = AuxPrimero.getSiguiente();
+                    Anterior = Anterior.getAnterior();
+                }
+                if (AuxPrimero.getSiguiente() != primerNodo) {
+                    Anterior.setSiguiente(AuxPrimero.getSiguiente());
+                    AuxPrimero = AuxPrimero.getSiguiente();
+                    AuxPrimero.setAnterior(Anterior);
+                }
+                else{
+                    throw new ListaDECircularException("No hay dicho elemento");
+                }
+            }
+            
+
+        }
+    }
+
+    public Nodo<T> obtenerNodoPorIndice(int indice)
+            throws ListaDECircularException {
+        if (esVacia() || indice > ultimoIndice) {
+            throw new ListaDECircularException("Indice fuera de rango");
+        }
+        else{
+            Nodo<T> buscado = primerNodo;
+            for (int i = 0; i < indice; i++) {
+                buscado = buscado.getSiguiente();
+            }
+            return buscado;
+        }    
+    }
+
+    
+    public void modificarDato(int indice, T dato) throws ListaDECircularException{
+        if (esVacia()) {
+            throw new ListaDECircularException("Lista Vacia");
+        }
+        else{
+            if (indice==0) {
+                primerNodo.setContenido(dato);
+            }
+            else{
+                if (indice>0 && indice < ultimoIndice) {
+                    Nodo<T> auxiliar = primerNodo;
+                    for (int i = 0; i < ultimoIndice; i++) {
+                        if (i==indice-1) {
+                            Nodo<T> nodo = auxiliar.getSiguiente();
+                            nodo.setContenido(dato);
+     
+                            auxiliar.setSiguiente(nodo);
+                        }
+                        else{
+                            auxiliar = auxiliar.getSiguiente();
+                        }
+                    }
+                }
+                else{
+                    throw new ListaDECircularException("Posicion fuera de rango");
+                }
+            }
+        }
+    }
+
+    public boolean esVacia() {
+        return ultimoNodo == null;
+    }
+
+    public Nodo<T> getPrimerNodo() {
+        return primerNodo;
+    }
+
+    public Nodo<T> getUltimoNodo() {
+        return ultimoNodo;
+    }
+
+    public int getUltimoIndice() {
+        return ultimoIndice;
+    }
+
+    public int getTamañoLista() {
+        return tamañoLista;
+    }
+
+    public void setPrimerNodo(Nodo<T> primerNodo) {
+        this.primerNodo = primerNodo;
+    }
+
+    public void setUltimoNodo(Nodo<T> ultimoNodo) {
+        this.ultimoNodo = ultimoNodo;
+    }
+}
