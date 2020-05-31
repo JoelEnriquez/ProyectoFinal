@@ -3,7 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ASUS/Desktop/ProyectoFinal/src/Main/MenuPrincipal.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Agregados/Ficha.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Diseño/CrearJuego.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Diseño/NumeroTarjetasTomeTarjeta.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/AdministradorGrupos/ManejadorTiposTomaTarjeta.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Casillas/Casilla.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Diseño/DiseñarAccionesTarjetas.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Agregados/SuperClaseAcciones.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Casillas/Estacion.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/AdministradorGrupos/AdministradorGruposTomeTarjeta.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Casillas/Trampa.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Juego/Jugar.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Dados/Dado.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Diseño/CrearTablero.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/EntidadesDinero/Jugador.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Juego/tableroJuego.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Main/MenuPrincipal.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Diseño/EditarTarjetas.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/AdministradorGrupos/GrupoTarjeta.java</file>
+            <file>file:/home/joel/NetBeansProjects/ProyectoFinal1.0/src/Guardar/GuardarTablero.java</file>
         </group>
     </open-files>
 </project-private>

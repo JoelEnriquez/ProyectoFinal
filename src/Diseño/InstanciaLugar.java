@@ -16,7 +16,7 @@ import java.awt.Color;
 public class InstanciaLugar extends javax.swing.JDialog {
 
     private CrearTablero crearTablero;
-    private ManejadorPropiedades manejadorPropiedades;
+    private AdministradorGruposLugar adminGruposLugar;
     private String[] gruposPropiedades;
     private Color[] coloresGrupo;
     private GrupoLugar[] grupoL;
@@ -27,12 +27,12 @@ public class InstanciaLugar extends javax.swing.JDialog {
     private int porcentajeHipoteca;
     
 
-    public InstanciaLugar(CrearTablero crearTablero, boolean modal, ManejadorPropiedades manejador,
+    public InstanciaLugar(CrearTablero crearTablero, boolean modal, AdministradorGruposLugar adminGruposLugar,
             int fila, int columna, int porcentajeHipoteca) {
         super(crearTablero, modal);   
         initComponents();
         this.crearTablero = crearTablero;
-        manejadorPropiedades = manejador;
+        this.adminGruposLugar = adminGruposLugar;
         this.fila = fila;
         this.columna = columna;
         this.porcentajeHipoteca = porcentajeHipoteca;
@@ -42,12 +42,12 @@ public class InstanciaLugar extends javax.swing.JDialog {
     
     public void establecer(){
 
-        gruposPropiedades = manejadorPropiedades.getNombreGrupo();
-        coloresGrupo = manejadorPropiedades.getColoresGrupo();
+        gruposPropiedades = adminGruposLugar.getNombreGrupo();
+        coloresGrupo = adminGruposLugar.getColoresGrupo();
         
         grupoLugarjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(gruposPropiedades));
         colorActualjPanel.setBackground(coloresGrupo[grupoLugarjComboBox.getSelectedIndex()]);
-        grupoL = manejadorPropiedades.getGrupoLugar();
+        grupoL = adminGruposLugar.getGrupoLugar();
     } 
 
     /**

@@ -22,169 +22,16 @@ import javax.swing.JLabel;
  * @author joel
  */
 public class tableroJuego extends javax.swing.JFrame {
+    
+    Cronometro cr = new Cronometro();
 
-    /**
-     * Creates new form tableroJuego
-     */
     public tableroJuego() {
+        
         initComponents();
+        cr.iniciarCronometro();    
     }
     
-    private class Dado1 extends Thread{
-        
-        @Override
-        public void run(){
-            boolean bandera = true;
-           while(bandera){
-               Random r = new Random();
-               int dado = r.nextInt(6)+1;  // Entre 0 y 5, más 1.
-               //System.out.println(valorDado);
-               switch(dado){
-                   case 1:
-                       Image img = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara1.png")).getImage();
-                       img = img.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel1.setIcon(new ImageIcon(img));
-                       bandera= false;
-                    break;
-                   case 2:
-                       Image img2 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara2.png")).getImage();
-                       img2 = img2.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel1.setIcon(new ImageIcon(img2));
-                       bandera= false;
-                    break;
-                   case 3:
-                       Image img3 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara3.png")).getImage();
-                       img3 = img3.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel1.setIcon(new ImageIcon(img3));
-                       bandera= false;
-                    break;
-                   case 4:
-                       Image img4 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara4.png")).getImage();
-                       img4 = img4.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel1.setIcon(new ImageIcon(img4));
-                       bandera= false;
-                    break;
-                   case 5:
-                       Image img5 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara5.png")).getImage();
-                       img5 = img5.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel1.setIcon(new ImageIcon(img5));
-                       bandera= false;
-                    break;         
-                   case 6:
-                       Image img6 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara6.png")).getImage();
-                       img6 = img6.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel1.setIcon(new ImageIcon(img6));
-                       bandera= false;
-                    break;   
-               }
-               
-           }
-        }
-    }
-    
-    private class Dado2 extends Thread{
-        
-        @Override
-        public void run(){
-            boolean bandera = true;
-           while(bandera){
-               Random r = new Random();
-               int dado = r.nextInt(6)+1;  // Entre 0 y 5, más 1.
-               //System.out.println(valorDado);
-               switch(dado){
-                   case 1:
-                       Image img = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara1.png")).getImage();
-                       img = img.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel2.setIcon(new ImageIcon(img));
-                       bandera= false;
-                    break;
-                   case 2:
-                       Image img2 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara2.png")).getImage();
-                       img2 = img2.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel2.setIcon(new ImageIcon(img2));
-                       bandera= false;
-                    break;
-                   case 3:
-                       Image img3 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara3.png")).getImage();
-                       img3 = img3.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel2.setIcon(new ImageIcon(img3));
-                       bandera= false;
-                    break;
-                   case 4:
-                       Image img4 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara4.png")).getImage();
-                       img4 = img4.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel2.setIcon(new ImageIcon(img4));
-                       bandera= false;
-                    break;
-                   case 5:
-                       Image img5 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara5.png")).getImage();
-                       img5 = img5.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel2.setIcon(new ImageIcon(img5));
-                       bandera= false;
-                    break;         
-                   case 6:
-                       Image img6 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara6.png")).getImage();
-                       img6 = img6.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel2.setIcon(new ImageIcon(img6));
-                       bandera= false;
-                    break;   
-               }
-               
-           }
-        }
-    }
-    
-    private class Dado3 extends Thread{
-        
-        @Override
-        public void run(){
-            boolean bandera = true;
-           while(bandera){
-               Random r = new Random();
-               int dado = r.nextInt(6)+1;  // Entre 0 y 5, más 1.
-               //System.out.println(valorDado);
-               switch(dado){
-                   case 1:
-                       Image img = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara1.png")).getImage();
-                       img = img.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel3.setIcon(new ImageIcon(img));
-                       bandera= false;
-                    break;
-                   case 2:
-                       Image img2 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara2.png")).getImage();
-                       img2 = img2.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel3.setIcon(new ImageIcon(img2));
-                       bandera= false;
-                    break;
-                   case 3:
-                       Image img3 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara3.png")).getImage();
-                       img3 = img3.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel3.setIcon(new ImageIcon(img3));
-                       bandera= false;
-                    break;
-                   case 4:
-                       Image img4 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara4.png")).getImage();
-                       img4 = img4.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel3.setIcon(new ImageIcon(img4));
-                       bandera= false;
-                    break;
-                   case 5:
-                       Image img5 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara5.png")).getImage();
-                       img5 = img5.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel3.setIcon(new ImageIcon(img5));
-                       bandera= false;
-                    break;         
-                   case 6:
-                       Image img6 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara6.png")).getImage();
-                       img6 = img6.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       jLabel3.setIcon(new ImageIcon(img6));
-                       bandera= false;
-                    break;   
-               }
-               
-           }
-        }
-    }
+
     
     
     public class Cronometro extends JFrame implements Runnable, ActionListener{
@@ -197,7 +44,7 @@ public class tableroJuego extends javax.swing.JFrame {
         setLayout( new BorderLayout() );
 
         //Etiqueta donde se colocara el tiempo 
-        tiempo = new JLabel( "00:00:000" );
+        tiempo = new JLabel( "00:00" );
         tiempo.setFont(new Font( Font.SERIF, Font.BOLD, 50));
         tiempo.setHorizontalAlignment( JLabel.CENTER );
         tiempo.setForeground( Color.BLUE );
@@ -223,7 +70,7 @@ public class tableroJuego extends javax.swing.JFrame {
     public void run(){
         Integer minutos = 0 , segundos = 0, milesimas = 0;
         //min es minutos, seg es segundos y mil es milesimas de segundo
-        String min="", seg="", mil="";
+        String min="", seg="";
         try
         {
             //Mientras cronometroActivo sea verdadero entonces seguira
@@ -249,23 +96,19 @@ public class tableroJuego extends javax.swing.JFrame {
                     }
                 }
 
-                //Esto solamente es estetica para que siempre este en formato
-                //00:00:000
+
                 if( minutos < 10 ) min = "0" + minutos;
                 else min = minutos.toString();
                 if( segundos < 10 ) seg = "0" + segundos;
                 else seg = segundos.toString();
 
-                if( milesimas < 10 ) mil = "00" + milesimas;
-                else if( milesimas < 100 ) mil = "0" + milesimas;
-                else mil = milesimas.toString();
 
                 //Colocamos en la etiqueta la informacion
-                tiempo.setText( min + ":" + seg + ":" + mil );
+                tiempo.setText( min + ":" + seg);
             }
         }catch(Exception e){}
         //Cuando se reincie se coloca nuevamente en 00:00:000
-        tiempo.setText( "00:00:000" );
+        tiempo.setText( "00:00" );
     }
 
     //Esto es para el boton iniciar y reiniciar
@@ -421,14 +264,13 @@ public class tableroJuego extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonTirarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTirarDadosActionPerformed
-        Dado1 dado1 = new Dado1();
-        Dado2 dado2 = new Dado2();
-        Dado3 dado3 = new Dado3();
-        Cronometro cr = new Cronometro();
-        dado1.start();
-        dado2.start();
-        dado3.start();
-        cr.iniciarCronometro();
+//        Dado1 dado1 = new Dado1();
+//        Dado2 dado2 = new Dado2();
+//        Dado3 dado3 = new Dado3();
+//        dado1.start();
+//        dado2.start();
+//        dado3.start();
+        
     }//GEN-LAST:event_jButtonTirarDadosActionPerformed
 
     /**

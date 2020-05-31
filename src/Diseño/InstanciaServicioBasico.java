@@ -6,12 +6,9 @@
 package Diseño;
 
 import AdministradorGrupos.*;
-import Casillas.Lugar;
 import Casillas.ServicioBasico;
 import java.awt.Color;
-import javax.swing.Icon;
 import javax.swing.JColorChooser;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,7 +17,6 @@ import javax.swing.JOptionPane;
 public class InstanciaServicioBasico extends javax.swing.JDialog {
 
     private CrearTablero crearTablero;
-    private ManejadorPropiedades manejadorPropiedades;
     private GrupoLugar[] grupoL;
     private ServicioBasico servicioBasico;
     private Color colorServicio = null;

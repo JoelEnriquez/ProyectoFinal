@@ -79,7 +79,7 @@ public class InstanciarEstacion extends javax.swing.JDialog {
         panelContTextColorEstacionjPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel1.setForeground(new java.awt.Color(221, 221, 221));
         jLabel1.setText("Color de Estacion");
         jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelContTextColorEstacionjPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 320, 60));
@@ -87,7 +87,7 @@ public class InstanciarEstacion extends javax.swing.JDialog {
         getContentPane().add(panelContTextColorEstacionjPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 340, 80));
 
         textoNombreEstacionjLabel.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        textoNombreEstacionjLabel.setForeground(new java.awt.Color(204, 204, 204));
+        textoNombreEstacionjLabel.setForeground(new java.awt.Color(221, 221, 221));
         textoNombreEstacionjLabel.setText("Nombre de Estacion");
         textoNombreEstacionjLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 

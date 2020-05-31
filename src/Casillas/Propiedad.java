@@ -2,12 +2,15 @@ package Casillas;
 
 
 import EntidadesDinero.Jugador;
+import java.awt.Color;
+import java.io.Serializable;
 
-public abstract class Propiedad extends Casilla {
+public abstract class Propiedad extends Casilla implements Serializable {
 
     protected Jugador jugadorDueño;
     protected String nombrePropiedad;
     protected int precioCompra;
+    protected Color color;
     protected int precioHipoteca;
     protected int costoEstancia;
     protected int porcentajeHipoteca;
@@ -71,6 +74,18 @@ public abstract class Propiedad extends Casilla {
         this.estadoPropiedad = estadoPropiedad;
     }
 
-    
-    
+    public String getNombrePropiedad() {
+        return nombrePropiedad;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public Propiedad getPorNombre(String nombrePropiedad) throws Exception{
+        if (nombrePropiedad.equals(this.nombrePropiedad)) {
+            return this;
+        }
+        throw new Exception("No hay coincidencia de nombres");
+    }
 }

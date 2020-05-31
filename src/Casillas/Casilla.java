@@ -1,40 +1,55 @@
 package Casillas;
 
 import Agregados.Ficha;
-import javax.swing.JLabel;
+import Agregados.SuperClaseAcciones;
+import java.io.Serializable;
 
 
-public class Casilla {
+public class Casilla extends SuperClaseAcciones implements Serializable{
     
-    protected int anchura;
-    protected int altura;
-    protected String nombreCasilla;
+    protected int fila;
+    protected int columna;
     protected int posicionRecorrido;
+    protected String tipoCasilla;
     protected Ficha fichita;
 
-    public Casilla(int anchura, int altura) {
-        this.anchura = anchura;
-        this.altura = altura;  
-    }
-
-    public String getNombreCasilla() {
-        return nombreCasilla;
-    }
-
-    public void setNombreCasilla(String nombreCasilla) {
-        this.nombreCasilla = nombreCasilla;
+    public Casilla(int fila, int columna) {
+        this.fila = fila;
+        this.columna = columna;  
     }
 
     public int getAltura() {
-        return altura;
+        return fila;
     }
 
     public int getAnchura() {
-        return anchura;
+        return columna;
     }
 
     public int getPosicionRecorrido() {
         return posicionRecorrido;
-    }    
-     
+    }  
+
+    public void setPosicionRecorrido(int posicionRecorrido) {
+        this.posicionRecorrido = posicionRecorrido;
+    }
+
+    public String getTipoCasilla() {
+        return tipoCasilla;
+    }
+
+    public void setTipoCasilla(String tipoCasilla) {
+        this.tipoCasilla = tipoCasilla;
+    }
+    
+    public Casilla getPorString(String tipoCasilla) throws Exception{
+        if (tipoCasilla.equals(this.tipoCasilla)) {
+            return this;
+        }
+        throw new Exception("No hay coincidencia");
+    }
+    
+    
+    
+    
 }
