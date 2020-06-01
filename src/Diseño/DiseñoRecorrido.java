@@ -1,7 +1,9 @@
 package Diseño;
 
+import java.io.Serializable;
 
-public class DiseñoRecorrido {
+
+public class DiseñoRecorrido implements Serializable{
     
     private int filas;
     private int columnas;

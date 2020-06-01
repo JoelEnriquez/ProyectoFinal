@@ -7,17 +7,20 @@ package Diseño;
 
 import AdministradorGrupos.AdministradorGruposLugar;
 import AdministradorGrupos.AdministradorGruposTomeTarjeta;
-import AdministradorGrupos.GrupoLugar;
-import AdministradorGrupos.GrupoTarjeta;
 import AdministradorGrupos.ManejadorCasillasPropiedad;
 import AdministradorGrupos.ManejadorTiposTomaTarjeta;
 import Casillas.Casilla;
+import Guardar.GuardarTablero;
 import Juego.Tablero;
 import Main.MenuPrincipal;
 import PilasYColas.ListaDECircular;
+import java.awt.HeadlessException;
 import java.io.Serializable;
 import javax.swing.Icon;
+import javax.swing.JFileChooser;
+import static javax.swing.JFileChooser.APPROVE_OPTION;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -87,6 +90,7 @@ public class CrearJuego extends javax.swing.JFrame implements Serializable {
         textoNumeroColumnasjLabel1 = new javax.swing.JLabel();
         limiteHotelesjSpinner = new javax.swing.JSpinner();
         monopolyGuyjLabel = new javax.swing.JLabel();
+        vistaPreviaTablerojButton = new javax.swing.JButton();
         textoSimboloPorcentajejLabel = new javax.swing.JLabel();
         jLabelFondoCrearJuego = new javax.swing.JLabel();
 
@@ -247,6 +251,16 @@ public class CrearJuego extends javax.swing.JFrame implements Serializable {
         monopolyGuyjLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/monopoly-rich-uncle-pennybags.jpg"))); // NOI18N
         ingresarInfojPanel.add(monopolyGuyjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, 420, 160));
 
+        vistaPreviaTablerojButton.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
+        vistaPreviaTablerojButton.setText("Vista Previa Tablero");
+        vistaPreviaTablerojButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vistaPreviaTablerojButtonActionPerformed(evt);
+            }
+        });
+        ingresarInfojPanel.add(vistaPreviaTablerojButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 400, 70));
+        vistaPreviaTablerojButton.setVisible(false);
+
         textoSimboloPorcentajejLabel.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
         textoSimboloPorcentajejLabel.setText("%");
         ingresarInfojPanel.add(textoSimboloPorcentajejLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 220, 40, 40));
@@ -270,12 +284,27 @@ public class CrearJuego extends javax.swing.JFrame implements Serializable {
     }//GEN-LAST:event_regresarMenuPrincipaljButtonActionPerformed
 
     private void savejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savejButtonActionPerformed
-    
 
-    Tablero nuevoTablero = new Tablero(numeroFilas, numeroColumnas, porcentajeHipoteca, tablero, recorrido,
-            nombreJuego, numeroJugadores, limiteCasas, limiteHoteles, dineroInicialJugador, dineroPorVuelta, numeroDados,
-            administradorGruposLugar, administradorGruposTomeTarjeta, manejadorCasillasPropiedad, manejadorTiposTomaTarjeta);
+        Tablero nuevoTablero = new Tablero(numeroFilas, numeroColumnas, porcentajeHipoteca, tablero, recorrido,
+                nombreJuego, numeroJugadores, limiteCasas, limiteHoteles, dineroInicialJugador, dineroPorVuelta, numeroDados,
+                administradorGruposLugar, administradorGruposTomeTarjeta, manejadorCasillasPropiedad, manejadorTiposTomaTarjeta);
 
+        GuardarTablero saveBoard = new GuardarTablero();
+
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("tablero .board", "board"));
+            fileChooser.setAcceptAllFileFilterUsed(false);
+            int seleccion = fileChooser.showSaveDialog(this);
+
+            if (seleccion == APPROVE_OPTION) {
+                saveBoard.guardarTablero(fileChooser.getSelectedFile().getPath() + ".board", nuevoTablero);
+            }
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
 
 
     }//GEN-LAST:event_savejButtonActionPerformed
@@ -308,10 +337,16 @@ public class CrearJuego extends javax.swing.JFrame implements Serializable {
         validarSoloLetras(evt);
     }//GEN-LAST:event_nombreJuegojTextFieldKeyTyped
 
+    private void vistaPreviaTablerojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vistaPreviaTablerojButtonActionPerformed
+        VistaPreviaTablero vistaPreviaTablero = new VistaPreviaTablero(this, true, recorrido, tablero, numeroFilas, numeroColumnas);
+        vistaPreviaTablero.setLocationRelativeTo(this);
+        vistaPreviaTablero.setVisible(true);
+    }//GEN-LAST:event_vistaPreviaTablerojButtonActionPerformed
+
     public void validarSoloLetras(java.awt.event.KeyEvent evt) {
         char validar = evt.getKeyChar();
 
-        if ((validar < 'a' || validar > 'z') && (validar < 'A' || validar > 'Z') && validar!=' ') {
+        if ((validar < 'a' || validar > 'z') && (validar < 'A' || validar > 'Z') && validar != ' ') {
             evt.consume();
             JOptionPane.showMessageDialog(this, "Solo se admiten letras",
                     "ALERTA", JOptionPane.INFORMATION_MESSAGE, warningIcon);
@@ -330,12 +365,15 @@ public class CrearJuego extends javax.swing.JFrame implements Serializable {
         noFilasjSpinner.setEnabled(false);
         noColumnasjSpinner.setEnabled(false);
         regresarMenuPrincipaljButton.setEnabled(false);
-        crearTablerojButton.setEnabled(false);
+        crearTablerojButton.setVisible(false);
+        nombreJuegojTextField.setEnabled(false);
+        
+        vistaPreviaTablerojButton.setVisible(true); //Poder ver como quedo el tablero
     }
-    
+
     public void transferirDatosTablero(ManejadorCasillasPropiedad manejadorCasillasPropiedad, ManejadorTiposTomaTarjeta manejadorTiposTomaTarjeta,
             AdministradorGruposLugar adminGruposLugar, AdministradorGruposTomeTarjeta adminGruposTarjeta, Casilla[][] tablero,
-            ListaDECircular<Casilla> recorrido){
+            ListaDECircular<Casilla> recorrido) {
         this.manejadorCasillasPropiedad = manejadorCasillasPropiedad;
         this.manejadorTiposTomaTarjeta = manejadorTiposTomaTarjeta;
         this.administradorGruposLugar = adminGruposLugar;
@@ -376,5 +414,6 @@ public class CrearJuego extends javax.swing.JFrame implements Serializable {
     private javax.swing.JLabel textoNumeroFilasjLabel;
     private javax.swing.JLabel textoPorcentajeHipotecajLabel;
     private javax.swing.JLabel textoSimboloPorcentajejLabel;
+    private javax.swing.JButton vistaPreviaTablerojButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,11 +18,11 @@ public class Casilla extends SuperClaseAcciones implements Serializable{
         this.columna = columna;  
     }
 
-    public int getAltura() {
+    public int getFila() {
         return fila;
     }
 
-    public int getAnchura() {
+    public int getColumna() {
         return columna;
     }
 
@@ -47,6 +47,10 @@ public class Casilla extends SuperClaseAcciones implements Serializable{
             return this;
         }
         throw new Exception("No hay coincidencia");
+    }
+    
+    public Casilla getCasilla(){
+        return this;
     }
     
     

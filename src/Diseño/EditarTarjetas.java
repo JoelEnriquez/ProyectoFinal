@@ -3,12 +3,13 @@ package Diseño;
 import AdministradorGrupos.*;
 import Casillas.Casilla;
 import PilasYColas.ListaDECircular;
+import java.io.Serializable;
 
 /**
  *
  * @author joel
  */
-public class EditarTarjetas extends javax.swing.JFrame {
+public class EditarTarjetas extends javax.swing.JFrame implements Serializable{
 
     private GrupoTarjeta[] gruposTarjeta;
     private GrupoLugar[] gruposLugar;

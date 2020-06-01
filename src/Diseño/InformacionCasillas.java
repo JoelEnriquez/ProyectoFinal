@@ -7,6 +7,7 @@ package Diseño;
 
 import AdministradorGrupos.*;
 import java.awt.Color;
+import java.io.Serializable;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.JColorChooser;
@@ -16,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author joel
  */
-public class InformacionCasillas extends javax.swing.JDialog {
+public class InformacionCasillas extends javax.swing.JDialog implements Serializable{
 
     private AdministradorGruposTomeTarjeta administradorGrupos;
     private AdministradorGruposLugar adminGrupoLugar;
@@ -504,10 +505,20 @@ public class InformacionCasillas extends javax.swing.JDialog {
 
     private void ingresarGruposLugarjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ingresarGruposLugarjTextFieldKeyTyped
         crearTablero.validarSoloLetras(evt, "Solo se admiten letras");
+        
+        if (ingresarGruposLugarjTextField.getText().length()== CrearTablero.LIMITE_NOMBRE) {
+            evt.consume();
+            crearTablero.mensajeError("No pueden haber mas de 25 caracteres");
+        } 
     }//GEN-LAST:event_ingresarGruposLugarjTextFieldKeyTyped
 
     private void ingresarNombresGrupojTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ingresarNombresGrupojTextFieldKeyTyped
         crearTablero.validarSoloLetras(evt, "Solo se admiten letras");
+        
+        if (ingresarNombresGrupojTextField.getText().length()== CrearTablero.LIMITE_NOMBRE) {
+            evt.consume();
+            crearTablero.mensajeError("No pueden haber mas de 25 caracteres");
+        } 
     }//GEN-LAST:event_ingresarNombresGrupojTextFieldKeyTyped
 
 

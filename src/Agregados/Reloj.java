@@ -1,6 +1,8 @@
 package Agregados;
 
+import java.io.Serializable;
 
-public class Reloj {
+
+public class Reloj implements Serializable {
     
 }

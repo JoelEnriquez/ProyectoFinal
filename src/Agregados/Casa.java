@@ -1,7 +1,9 @@
 
 package Agregados;
 
+import java.io.Serializable;
 
-public class Casa {
+
+public class Casa implements Serializable {
     
 }

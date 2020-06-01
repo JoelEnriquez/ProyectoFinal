@@ -20,26 +20,26 @@ import java.io.ObjectOutputStream;
 public class GuardarTablero {
     
     
-    public void guardarTablero(String path, Tablero tablero){
+    public void guardarTablero(String path, Tablero tablero) throws Exception{
         try {
-            ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(path));
-            salida.writeObject(tablero);
-            salida.close();
+            try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(path))) {
+                salida.writeObject(tablero);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 
-    public Jugador[] leerTablero(String path) throws Exception {
+    public Tablero leerTablero(String path) throws Exception {
         try {
-            ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream(path));
-            Object salida = flujoSalida.readObject();
-            flujoSalida.close();
-            return (Jugador[]) salida;
+            Object salida;
+            try (ObjectInputStream flujoSalida = new ObjectInputStream(new FileInputStream(path))) {
+                salida = flujoSalida.readObject();
+            }
+            return (Tablero) salida;
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            throw new Exception("Error al cargar el tablero");
-        }
+            throw new Exception(e.getMessage());
+        } 
     }
     
 }

@@ -6,6 +6,8 @@
 package Main;
 
 import Diseño.CrearJuego;
+import Diseño.EditarJuego;
+import Guardar.GuardarTablero;
 import Juego.*;
 import javax.swing.JOptionPane;
 
@@ -15,9 +17,9 @@ import javax.swing.JOptionPane;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MenuPrincipal
-     */
+    private Tablero tablero;
+    private GuardarTablero manejadorTablero;
+    
     public MenuPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -96,6 +98,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jButtonEditar.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jButtonEditar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonEditar.setText("EDITAR");
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 570, 210, 80));
 
         jButtonCrear.setBackground(new java.awt.Color(255, 255, 51));
@@ -155,6 +162,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jButtonJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJugarActionPerformed
         Jugar nuevoJuego = new Jugar(this);
+        EscogerTipoJuego escoger = new EscogerTipoJuego(this, true, manejadorTablero,nuevoJuego);
+        escoger.setLocationRelativeTo(this);
+        escoger.setVisible(true);
+        
+        InfoJuego info = new InfoJuego(this, true, escoger);
+        
         nuevoJuego.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonJugarActionPerformed
@@ -179,6 +192,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jButtonRankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRankingActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonRankingActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        EditarJuego editarJuego = new EditarJuego(this);
+        editarJuego.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

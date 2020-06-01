@@ -7,12 +7,13 @@ package Diseño;
 
 import AdministradorGrupos.*;
 import java.awt.Color;
+import java.io.Serializable;
 
 /**
  *
  * @author joel
  */
-public class NumeroTarjetasTomeTarjeta extends javax.swing.JDialog {
+public class NumeroTarjetasTomeTarjeta extends javax.swing.JDialog implements Serializable{
 
     private EditarTarjetas editar;
     private CrearTablero crearTablero;

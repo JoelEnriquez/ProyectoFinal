@@ -5,11 +5,14 @@
  */
 package PilasYColas;
 
+import Casillas.Carcel;
+import java.io.Serializable;
+
 /**
  *
  * @author joel
  */
-public class ListaDECircular<T> {
+public class ListaDECircular<T> implements Serializable{
 
     private Nodo<T> primerNodo;
     private Nodo<T> ultimoNodo;
@@ -136,13 +139,13 @@ public class ListaDECircular<T> {
     }
 
     
-    public int posicionListaPorNodo(T dato) throws ListaDECircularException {
+    public int posicionNodoObjetivo(T dato) throws ListaDECircularException {
         int posicionActual = 0;
         if (esVacia()) {
             throw new ListaDECircularException("No hay elementos");
         } else {
-            Nodo<T> auxPrimerNodo = primerNodo;
-            if (dato == auxPrimerNodo.getContenido()) {
+            
+            if (dato == primerNodo.getContenido()) {
                 return posicionActual;
             }
             else{
@@ -163,23 +166,7 @@ public class ListaDECircular<T> {
         throw new ListaDECircularException("No hay ningun elemento");
     }
     
-    
-    public int calcularDistanciaDelante(int indice, T dato) throws ListaDECircularException{
-        if (esVacia()) {
-           throw new ListaDECircularException("Lista Vacia"); 
-        }
-        else{
-            if (true) {
-                
-            }
-            
-            
-        }
- 
-        throw new ListaDECircularException("No hay coincidencia de datos");
-    }
 
-    
     public void modificarDato(int indice, T dato) throws ListaDECircularException {
         if (esVacia()) {
             throw new ListaDECircularException("Lista Vacia");
@@ -205,6 +192,70 @@ public class ListaDECircular<T> {
             }
         }
     }
+    
+    public Nodo<T> obtenerNodoObjetivoDelante(int posicionActual, int posicionesDelante)
+            throws ListaDECircularException{
+        if (esVacia()) {
+            throw new ListaDECircularException("Lista Vacia");
+        }
+        else{
+            Nodo <T> aux = obtenerNodoPorIndice(posicionActual);
+            for (int i = 0; i < posicionesDelante; i++) {
+                aux = aux.getSiguiente();
+            }
+            return aux;
+        }
+    }
+    
+    public Nodo<T> obtenerNodoObjetivoDetras(int posicionActual, int posicionesDetras)
+            throws ListaDECircularException{
+        if (esVacia()) {
+            throw new ListaDECircularException("Lista Vacia");
+        }
+        else{
+            Nodo <T> aux = obtenerNodoPorIndice(posicionActual);
+            for (int i = 0; i < posicionesDetras; i++) {
+                aux = aux.getAnterior();
+            }
+            return aux;
+        }
+    }
+    
+    public Nodo<T> obtenerNodoSiguiente(int posicionActual)
+            throws ListaDECircularException{
+        if (esVacia()) {
+            throw new ListaDECircularException("Lista Vacia");
+        }
+        else{
+            Nodo <T> aux = obtenerNodoPorIndice(posicionActual);
+            aux.getSiguiente();
+            return aux;
+        }
+    }
+
+    public int calcularCarcelHaciaAdelante(int indiceActual) throws ListaDECircularException{
+        Nodo<T> auxiliar = obtenerNodoPorIndice(indiceActual);
+        int contador = 0;
+        do {
+            auxiliar = auxiliar.getSiguiente();          
+            contador++;
+        } while (!(auxiliar.getContenido() instanceof Carcel));
+        
+        return contador;
+    }
+    
+    public int calcularCarcelHaciaAtras(int indiceActual) throws ListaDECircularException{
+        Nodo<T> auxiliar = obtenerNodoPorIndice(indiceActual);
+        int contador = 0;
+        do {
+            auxiliar = auxiliar.getAnterior();          
+            contador++;
+        } while (!(auxiliar.getContenido() instanceof Carcel));
+        
+        return contador;
+    }
+    
+    
 
     public void imprimirContenido() {
         if (primerNodo == null) {

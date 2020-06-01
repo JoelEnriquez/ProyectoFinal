@@ -1,11 +1,14 @@
 package Juego;
 
 
+import Casillas.Casilla;
 import Dados.Dado;
 import Main.MenuPrincipal;
+import PilasYColas.ListaDECircular;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.Serializable;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -15,23 +18,26 @@ import javax.swing.JTextField;
  *
  * @author joel
  */
-public class Jugar extends javax.swing.JFrame {
+public class Jugar extends javax.swing.JFrame implements Serializable {
 
+    private Tablero tablero;
+    private JPanel[][] casillas;
+    private ListaDECircular<Casilla> recorrido;
+    private Casilla[][] tableroCasillas;
     private Dimension dimension;
     private Toolkit toolkit;
     private MenuPrincipal menu;
-    private final Icon confusedMan = new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ConfusedMonopolyMan.jpg"));;
-    private JPanel[][] casillas;
     private int filas = 15;
     private int columnas = 15;
     private Dado dados;
+    private final Icon confusedMan = new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ConfusedMonopolyMan.jpg"));
     
     public Jugar(MenuPrincipal menu) {
+        
         initComponents();
         iniciarFrame();
-        this.menu = menu;
         construirTablero();
-        
+        this.menu = menu;
     }
     
     private void iniciarFrame(){
@@ -50,7 +56,7 @@ public class Jugar extends javax.swing.JFrame {
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 casillas[i][j] = new JPanel();
-                casillas[i][j].setBackground(Color.blue);
+                casillas[i][j].setBackground(Color.gray);
                 casillas[i][j].setBounds(x, y, 130, 195);
                 
                 tablerojPanel.add(casillas[i][j]);
@@ -62,8 +68,18 @@ public class Jugar extends javax.swing.JFrame {
         
         tablerojPanel.setPreferredSize(new Dimension(130*filas+50, 195*columnas+50));
     }
-
     
+    private void sustituirPaneles(){
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                
+            }
+        }
+    }
+
+    public void setTablero(Tablero tablero) {
+        this.tablero = tablero;
+    }
 
     
     @SuppressWarnings("unchecked")

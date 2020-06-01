@@ -3,12 +3,13 @@ package Dados;
 import Agregados.SuperClaseAcciones;
 import java.awt.Image;
 import java.awt.Label;
+import java.io.Serializable;
 import java.util.Random;
 import javax.swing.ImageIcon;
 
 
 
-public class Dado extends SuperClaseAcciones{
+public class Dado extends SuperClaseAcciones implements Serializable{
     
     private int caraActual;
     private Label labelCara;
