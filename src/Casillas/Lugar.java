@@ -1,8 +1,10 @@
 package Casillas;
 
 import AdministradorGrupos.GrupoLugar;
+import java.awt.Color;
+import java.io.Serializable;
 
-public class Lugar extends Propiedad{
+public class Lugar extends Propiedad implements Serializable{
     
     private GrupoLugar grupoLugar;
     private int cantidadCasas;
@@ -22,6 +24,7 @@ public class Lugar extends Propiedad{
         this.precioHotel = precioHotel;
         this.aumentoPorCasa = aumentoPorCasa;
         this.aumentoPorHotel = aumentoPorHotel;
+        tipoCasilla = "Lugar";
        
     }
 
@@ -29,6 +32,11 @@ public class Lugar extends Propiedad{
     @Override
     public void cobrarRenta() {
        
+    }
+    
+    @Override
+    public Color getColor(){
+        return grupoLugar.getColorGrupo();
     }
 //    
 //    public int pagoPorCadaCasa(){

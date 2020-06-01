@@ -1,7 +1,9 @@
 package Casillas;
 
+import java.io.Serializable;
 
-public class Trampa extends Casilla {
+
+public class Trampa extends Casilla implements Serializable {
     
     private String castigo;
     
@@ -9,6 +11,7 @@ public class Trampa extends Casilla {
         super(fila, columna);
         this.castigo = castigo;
     }
+    
     
     
 }

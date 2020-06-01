@@ -5,9 +5,17 @@
  */
 package Diseño;
 
+import AdministradorGrupos.AdministradorGruposLugar;
+import AdministradorGrupos.AdministradorGruposTomeTarjeta;
+import AdministradorGrupos.GrupoLugar;
+import AdministradorGrupos.GrupoTarjeta;
+import AdministradorGrupos.ManejadorCasillasPropiedad;
+import AdministradorGrupos.ManejadorTiposTomaTarjeta;
 import Casillas.Casilla;
+import Juego.Tablero;
 import Main.MenuPrincipal;
 import PilasYColas.ListaDECircular;
+import java.io.Serializable;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
@@ -15,22 +23,36 @@ import javax.swing.JOptionPane;
  *
  * @author joel
  */
-public class CrearJuego extends javax.swing.JFrame {
+public class CrearJuego extends javax.swing.JFrame implements Serializable {
 
+    private MenuPrincipal menu;
+    private String nombreJuego;
+    private int numeroJugadores;
+    private int limiteCasas;
+    private int limiteHoteles;
+    private int dineroInicialJugador;
+    private int dineroPorVuelta;
+    public int numeroDados;
     private int numeroFilas;
     private int numeroColumnas;
     private int porcentajeHipoteca;
     private Casilla[][] tablero;
-    private ListaDECircular <Casilla> recorrido;
-    
-    
-    public CrearJuego() {
+    private ListaDECircular<Casilla> recorrido;
+    private AdministradorGruposLugar administradorGruposLugar;
+    private AdministradorGruposTomeTarjeta administradorGruposTomeTarjeta;
+    private ManejadorCasillasPropiedad manejadorCasillasPropiedad;
+    private ManejadorTiposTomaTarjeta manejadorTiposTomaTarjeta;
+    private Icon warningIcon = new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MonopolyConfundido.png"));
+
+    public CrearJuego(MenuPrincipal menu) {
+        this.menu = menu;
         initComponents();
         this.setLocationRelativeTo(null);
         ingresarInfojPanel.setVisible(true);
         //modificarTablerojPanel.setVisible(false);
-        
+
     }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -94,6 +116,11 @@ public class CrearJuego extends javax.swing.JFrame {
         nombreJuegojTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombreJuegojTextFieldActionPerformed(evt);
+            }
+        });
+        nombreJuegojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreJuegojTextFieldKeyTyped(evt);
             }
         });
         ingresarInfojPanel.add(nombreJuegojTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 480, 40));
@@ -163,6 +190,11 @@ public class CrearJuego extends javax.swing.JFrame {
         noDadosjComboBox.setFont(new java.awt.Font("Capture it", 1, 24)); // NOI18N
         noDadosjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
         noDadosjComboBox.setSelectedIndex(1);
+        noDadosjComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                noDadosjComboBoxActionPerformed(evt);
+            }
+        });
         ingresarInfojPanel.add(noDadosjComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 100, 40));
 
         crearTablerojButton.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
@@ -239,61 +271,90 @@ public class CrearJuego extends javax.swing.JFrame {
     }//GEN-LAST:event_nombreJuegojTextFieldActionPerformed
 
     private void regresarMenuPrincipaljButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarMenuPrincipaljButtonActionPerformed
-        MenuPrincipal menu = new MenuPrincipal();
         menu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_regresarMenuPrincipaljButtonActionPerformed
 
     private void savejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savejButtonActionPerformed
-        Icon warningIcon = new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MonopolyConfundido.png"));
-        
-        if (nombreJuegojTextField.getText().isEmpty() ) {
-            JOptionPane.showMessageDialog(this, "Por favor ingrese todos los campos requeridos",
-                    "ALERTA",JOptionPane.INFORMATION_MESSAGE ,warningIcon);  
-        }
-        
-        String nombreJuego = nombreJuegojTextField.getText().trim(); //Capturar el nombre y eliminar espacios en blanco sobrantes
-        int numeroJugadores = Integer.parseInt(noJugadoresjComboBox.getSelectedItem().toString());
-        int limiteCasas = (Integer) limiteCasasjSpinner.getValue();
-        int limiteHoteles = (Integer) limiteHotelesjSpinner.getValue();
-        int dineroInicialJugador = (Integer) dineroInicialjSpinner.getValue();
-        int dineroPorVuelta = (Integer) dineroPorVueltajSpinner.getValue();
-        int numeroDados = Integer.parseInt(noDadosjComboBox.getSelectedItem().toString());
-        
-//        numeroColumnas = (Integer) noColumnasjSpinner.getValue();
-//        numeroFilas = (Integer) noFilasjSpinner.getValue();
-//        int numeroGruposPropiedad = (Integer) numeroGrupoPropiedadesjSpinner.getValue();
-//        int numeroGruposTomeTarjeta = (Integer)numeroGrupoTomeTarjetajSpinner.getValue();
-        //porcentajeHipoteca = (Integer) (porcentajeHipotecajSpinner.getValue())/100;
+    
+
+    Tablero nuevoTablero = new Tablero(numeroFilas, numeroColumnas, porcentajeHipoteca, tablero, recorrido,
+            nombreJuego, numeroJugadores, limiteCasas, limiteHoteles, dineroInicialJugador, dineroPorVuelta, numeroDados,
+            administradorGruposLugar, administradorGruposTomeTarjeta, manejadorCasillasPropiedad, manejadorTiposTomaTarjeta);
+
+
 
     }//GEN-LAST:event_savejButtonActionPerformed
 
-    public int getPorcentajeHipoteca(){
-        porcentajeHipoteca = (Integer) (porcentajeHipotecajSpinner.getValue())/100;
-        return porcentajeHipoteca;
-    }
-    
-    public int getDineroPorVuelta(){
-        int dineroPorVuelta = (Integer) dineroPorVueltajSpinner.getValue();
-        return dineroPorVuelta;
-    }
-    
-    public String getNombreJuego(){
-        String nombreJuego = nombreJuegojTextField.getText().trim();
-        return nombreJuego;
-    }
-    
+
     private void crearTablerojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearTablerojButtonActionPerformed
-        numeroColumnas = (Integer) noColumnasjSpinner.getValue();
-        numeroFilas = (Integer) noFilasjSpinner.getValue();
-        porcentajeHipoteca = (Integer) (porcentajeHipotecajSpinner.getValue());
-        
-        
-        CrearTablero crear = new CrearTablero(numeroColumnas, numeroFilas, porcentajeHipoteca);
-        
-        crear.setVisible(true);
-        this.setVisible(false);
+        if (nombreJuegojTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese todos los campos requeridos",
+                    "ALERTA", JOptionPane.INFORMATION_MESSAGE, warningIcon);
+        } else {
+
+            numeroFilas = (Integer) noFilasjSpinner.getValue();
+            numeroColumnas = (Integer) noColumnasjSpinner.getValue();
+            porcentajeHipoteca = (Integer) (porcentajeHipotecajSpinner.getValue());
+            nombreJuego = nombreJuegojTextField.getText().trim(); //Capturar el nombre y eliminar espacios en blanco sobrantes
+            numeroJugadores = Integer.parseInt(noJugadoresjComboBox.getSelectedItem().toString());
+            limiteCasas = (Integer) limiteCasasjSpinner.getValue();
+            limiteHoteles = (Integer) limiteHotelesjSpinner.getValue();
+            dineroInicialJugador = (Integer) dineroInicialjSpinner.getValue();
+            dineroPorVuelta = (Integer) dineroPorVueltajSpinner.getValue();
+            numeroDados = Integer.parseInt(noDadosjComboBox.getSelectedItem().toString());
+
+            CrearTablero crear = new CrearTablero(numeroColumnas, numeroFilas, porcentajeHipoteca, this);
+            crear.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_crearTablerojButtonActionPerformed
+
+    private void nombreJuegojTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreJuegojTextFieldKeyTyped
+        validarSoloLetras(evt);
+    }//GEN-LAST:event_nombreJuegojTextFieldKeyTyped
+
+    private void noDadosjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noDadosjComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_noDadosjComboBoxActionPerformed
+
+    public void validarSoloLetras(java.awt.event.KeyEvent evt) {
+        char validar = evt.getKeyChar();
+
+        if ((validar < 'a' || validar > 'z') && (validar < 'A' || validar > 'Z') && validar!=' ') {
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Solo se admiten letras",
+                    "ALERTA", JOptionPane.INFORMATION_MESSAGE, warningIcon);
+
+        }
+    }
+
+    public void deshabilitarComponentes() {
+        porcentajeHipotecajSpinner.setEnabled(false);
+        noJugadoresjComboBox.setEnabled(false);
+        limiteCasasjSpinner.setEnabled(false);
+        limiteHotelesjSpinner.setEnabled(false);
+        dineroInicialjSpinner.setEnabled(false);
+        dineroPorVueltajSpinner.setEnabled(false);
+        noDadosjComboBox.setEnabled(false);
+        noFilasjSpinner.setEnabled(false);
+        noColumnasjSpinner.setEnabled(false);
+        regresarMenuPrincipaljButton.setEnabled(false);
+        crearTablerojButton.setEnabled(false);
+    }
+    
+    public void transferirDatosTablero(ManejadorCasillasPropiedad manejadorCasillasPropiedad, ManejadorTiposTomaTarjeta manejadorTiposTomaTarjeta,
+            AdministradorGruposLugar adminGruposLugar, AdministradorGruposTomeTarjeta adminGruposTarjeta, Casilla[][] tablero,
+            ListaDECircular<Casilla> recorrido){
+        this.manejadorCasillasPropiedad = manejadorCasillasPropiedad;
+        this.manejadorTiposTomaTarjeta = manejadorTiposTomaTarjeta;
+        this.administradorGruposLugar = adminGruposLugar;
+        this.administradorGruposTomeTarjeta = adminGruposTarjeta;
+        this.tablero = tablero;
+        this.recorrido = recorrido;
+    }
+    
+    
 
     /**
      * @param args the command line arguments

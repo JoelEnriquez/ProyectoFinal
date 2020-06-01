@@ -95,9 +95,9 @@ public class ListaDECircular<T> {
     public void eliminarPorElemento(T buscado) throws ListaDECircularException {
         if (esVacia()) {
             throw new ListaDECircularException("No hay elementos en la lista");
-            
+
         } else {
-            
+
             Nodo<T> AuxPrimero = primerNodo.getSiguiente();
             Nodo<T> Anterior = primerNodo;
 
@@ -114,12 +114,10 @@ public class ListaDECircular<T> {
                     Anterior.setSiguiente(AuxPrimero.getSiguiente());
                     AuxPrimero = AuxPrimero.getSiguiente();
                     AuxPrimero.setAnterior(Anterior);
-                }
-                else{
+                } else {
                     throw new ListaDECircularException("No hay dicho elemento");
                 }
             }
-            
 
         }
     }
@@ -128,44 +126,99 @@ public class ListaDECircular<T> {
             throws ListaDECircularException {
         if (esVacia() || indice > ultimoIndice) {
             throw new ListaDECircularException("Indice fuera de rango");
-        }
-        else{
+        } else {
             Nodo<T> buscado = primerNodo;
             for (int i = 0; i < indice; i++) {
                 buscado = buscado.getSiguiente();
             }
             return buscado;
-        }    
+        }
     }
 
     
-    public void modificarDato(int indice, T dato) throws ListaDECircularException{
+    public int posicionListaPorNodo(T dato) throws ListaDECircularException {
+        int posicionActual = 0;
         if (esVacia()) {
-            throw new ListaDECircularException("Lista Vacia");
-        }
-        else{
-            if (indice==0) {
-                primerNodo.setContenido(dato);
+            throw new ListaDECircularException("No hay elementos");
+        } else {
+            Nodo<T> auxPrimerNodo = primerNodo;
+            if (dato == auxPrimerNodo.getContenido()) {
+                return posicionActual;
             }
             else{
-                if (indice>0 && indice < ultimoIndice) {
+                posicionActual++;
+                Nodo<T> nodoAux = primerNodo.getSiguiente();
+                
+                do {     
+                    if (dato==nodoAux.getContenido()) {
+                        return posicionActual;
+                    }
+                    else{
+                        nodoAux = nodoAux.getSiguiente();
+                        posicionActual++;
+                    }
+                } while (nodoAux!= ultimoNodo.getSiguiente());
+            }
+        }
+        throw new ListaDECircularException("No hay ningun elemento");
+    }
+    
+    
+    public int calcularDistanciaDelante(int indice, T dato) throws ListaDECircularException{
+        if (esVacia()) {
+           throw new ListaDECircularException("Lista Vacia"); 
+        }
+        else{
+            if (true) {
+                
+            }
+            
+            
+        }
+ 
+        throw new ListaDECircularException("No hay coincidencia de datos");
+    }
+
+    
+    public void modificarDato(int indice, T dato) throws ListaDECircularException {
+        if (esVacia()) {
+            throw new ListaDECircularException("Lista Vacia");
+        } else {
+            if (indice == 0) {
+                primerNodo.setContenido(dato);
+            } else {
+                if (indice > 0 && indice < ultimoIndice) {
                     Nodo<T> auxiliar = primerNodo;
                     for (int i = 0; i < ultimoIndice; i++) {
-                        if (i==indice-1) {
+                        if (i == indice - 1) {
                             Nodo<T> nodo = auxiliar.getSiguiente();
                             nodo.setContenido(dato);
-     
+
                             auxiliar.setSiguiente(nodo);
-                        }
-                        else{
+                        } else {
                             auxiliar = auxiliar.getSiguiente();
                         }
                     }
-                }
-                else{
+                } else {
                     throw new ListaDECircularException("Posicion fuera de rango");
                 }
             }
+        }
+    }
+
+    public void imprimirContenido() {
+        if (primerNodo == null) {
+            System.out.println("Nulo");
+        } else {
+            Nodo<T> aux = primerNodo;
+            int recorrido = 1;
+            System.out.print("Comienzo ");
+            do {
+                System.out.print(recorrido + ")" + aux.getContenido() + "");
+                aux = aux.getSiguiente();
+                recorrido++;
+            } while (aux != primerNodo);
+            System.out.println("Fin");
         }
     }
 

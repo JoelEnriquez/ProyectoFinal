@@ -18,8 +18,8 @@ import javax.swing.JOptionPane;
  */
 public class InformacionCasillas extends javax.swing.JDialog {
 
-    private ManejadorTomeTarjeta manejadorTarjeta;
-    private ManejadorPropiedades manejadorPropiedades;
+    private AdministradorGruposTomeTarjeta administradorGrupos;
+    private AdministradorGruposLugar adminGrupoLugar;
     private CrearTablero crearTablero;
     private GrupoLugar[] grupoLugar;
     private GrupoTarjeta[] grupoTarjeta;
@@ -28,17 +28,13 @@ public class InformacionCasillas extends javax.swing.JDialog {
     private DefaultComboBoxModel defaultComboLugar = new DefaultComboBoxModel();
     private DefaultComboBoxModel defaultComboTarjeta = new DefaultComboBoxModel();
 
-    private javax.swing.JSpinner numeroGruposLugarjSpinner;
     Icon warningIcon = new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MonopolyConfundido.png"));
     private int auxGrupoTarjeta = 0;
     private int auxGrupoLugar = 0;
     private int casillasDisponibles;
     private int limiteGrupos;
     private int limiteTomeTarjeta;
-    private String[] nombreGruposLugar;
-    private String[] nombreGruposTarjeta;
-//    private Color[] colorGruposLugar;
-//    private Color[] colorGruposTarjeta;
+
 
     /**
      *
@@ -49,8 +45,8 @@ public class InformacionCasillas extends javax.swing.JDialog {
         super(crearTablero, modal);
         initComponents();
         this.crearTablero = crearTablero;
-        manejadorTarjeta = new ManejadorTomeTarjeta();
-        manejadorPropiedades = new ManejadorPropiedades();
+        administradorGrupos = new AdministradorGruposTomeTarjeta();
+        adminGrupoLugar = new AdministradorGruposLugar();
 
     }
 
@@ -213,6 +209,11 @@ public class InformacionCasillas extends javax.swing.JDialog {
         getContentPane().add(grupoLugarjComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 290, 40));
 
         ingresarGruposLugarjTextField.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        ingresarGruposLugarjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ingresarGruposLugarjTextFieldKeyTyped(evt);
+            }
+        });
         getContentPane().add(ingresarGruposLugarjTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 290, 40));
 
         aceptarjButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/complete.png"))); // NOI18N
@@ -249,6 +250,11 @@ public class InformacionCasillas extends javax.swing.JDialog {
         getContentPane().add(grupoTarjetajComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 170, 290, 40));
 
         ingresarNombresGrupojTextField.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        ingresarNombresGrupojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ingresarNombresGrupojTextFieldKeyTyped(evt);
+            }
+        });
         getContentPane().add(ingresarNombresGrupojTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 220, 290, 40));
 
         añadirGrupoTarjetajButton.setText("Añadir");
@@ -290,20 +296,20 @@ public class InformacionCasillas extends javax.swing.JDialog {
                 seletColorGrupojButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(seletColorGrupojButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, 100, 90));
+        getContentPane().add(seletColorGrupojButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 370, 100, 90));
 
-        textoColorTarjetajLabel.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        textoColorTarjetajLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         textoColorTarjetajLabel.setForeground(new java.awt.Color(255, 0, 0));
-        textoColorTarjetajLabel.setText("Color Tarjeta");
-        getContentPane().add(textoColorTarjetajLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 170, 150, 40));
+        textoColorTarjetajLabel.setText("Color Grupo de Tarjeta");
+        getContentPane().add(textoColorTarjetajLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 170, 210, 40));
 
         colorSeleccionadoGrupojPanel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 51, 51)));
         getContentPane().add(colorSeleccionadoGrupojPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, 100, 50));
 
-        textoColorGrupojLabel.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        textoColorGrupojLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         textoColorGrupojLabel.setForeground(new java.awt.Color(255, 0, 0));
-        textoColorGrupojLabel.setText("Color Grupo");
-        getContentPane().add(textoColorGrupojLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, 150, 30));
+        textoColorGrupojLabel.setText("Color Grupo de Lugar");
+        getContentPane().add(textoColorGrupojLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 340, 200, 30));
 
         seletColorTarjetajButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/paleta-de-color.png"))); // NOI18N
         seletColorTarjetajButton.setText("jButton1");
@@ -313,10 +319,10 @@ public class InformacionCasillas extends javax.swing.JDialog {
                 seletColorTarjetajButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(seletColorTarjetajButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 210, 100, 90));
+        getContentPane().add(seletColorTarjetajButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 210, 100, 90));
 
         colorSeleccionadoTarjetajPanel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 51, 51)));
-        getContentPane().add(colorSeleccionadoTarjetajPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 300, 100, 50));
+        getContentPane().add(colorSeleccionadoTarjetajPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 300, 100, 50));
 
         textoCostoUsoEstacionjLabel.setBackground(new java.awt.Color(255, 255, 255));
         textoCostoUsoEstacionjLabel.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
@@ -360,15 +366,16 @@ public class InformacionCasillas extends javax.swing.JDialog {
             
         } else{
             //Seteo de manejadores y, costo y uso de estacion
-            manejadorPropiedades.setGrupoLugar(grupoLugar);
-            manejadorPropiedades.setNombresGrupo();
-            manejadorPropiedades.setColoresGrupo();
+            adminGrupoLugar.setGrupoLugar(grupoLugar);
+            adminGrupoLugar.setNombresGrupo();
+            adminGrupoLugar.setColoresGrupo();
             
-            manejadorTarjeta.setGrupoTarjeta(grupoTarjeta);
-            manejadorTarjeta.setNombresGrupo();
-            manejadorTarjeta.setColoresGrupo();
+            administradorGrupos.setGruposTarjeta(grupoTarjeta);
+            administradorGrupos.setNombresGrupos();
+            administradorGrupos.setColoresGrupos();
             
-            llenarArregloGrupoTarjeta();
+            crearTablero.setAdministradores(adminGrupoLugar, administradorGrupos);
+            
             crearTablero.setCostoPorEstacion((Integer)precioCostoEstacionjSpinner.getValue());
             crearTablero.setUsoEstacion((Integer)costoUsoEstacionjSpinner.getValue());
             this.setVisible(false);  
@@ -385,8 +392,12 @@ public class InformacionCasillas extends javax.swing.JDialog {
     private void añadirGrupoLugarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirGrupoLugarjButtonActionPerformed
         if (auxGrupoLugar < (Integer) gruposLugarjSpinner.getValue()) {
             if (colorGrupo != null) {
+                if (ingresarGruposLugarjTextField.getText().trim().isEmpty()) {
+                    mensajeError("No hay nada escrito");
+                }
+                else{
                 //IntanciarObjetoTipoGrupoLugar donde nos apoyamos del auxiliar
-                agregarLugar(ingresarGruposLugarjTextField.getText());
+                agregarLugar(ingresarGruposLugarjTextField.getText().trim());
                 grupoLugar[auxGrupoLugar] = new GrupoLugar(ingresarGruposLugarjTextField.getText(), colorGrupo);
 
                 //Reinicio eleccion color y su panel, y aumento de aux
@@ -394,6 +405,7 @@ public class InformacionCasillas extends javax.swing.JDialog {
                 ingresarGruposLugarjTextField.requestFocus();
                 
                 auxGrupoLugar++;
+                }
             } else {
                 mensajeError("No has seleccionado, ningun color para el grupo");
             }
@@ -402,29 +414,24 @@ public class InformacionCasillas extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_añadirGrupoLugarjButtonActionPerformed
 
-//    private void llenarArregloGrupoPropiedades(){
-//        nombreGruposLugar = new String[valorJSpinnerGruposL()];
-//        
-//        for (int i = 0; i < valorJSpinnerGruposL(); i++) {
-//            String nombreAux = grupoLugarjComboBox.getItemAt(i);
-//            nombreGruposLugar[i] = nombreAux;
-//        }
-//        
-//        crearTablero.setArregloNombreGruposLugar(nombreGruposLugar);
-//    }
 
     private void añadirGrupoTarjetajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirGrupoTarjetajButtonActionPerformed
         if (auxGrupoTarjeta < (Integer) noGruposTomeTarjetajSpinner.getValue()) {
             if (colorTarjetas != null) {
+                if (ingresarNombresGrupojTextField.getText().trim().isEmpty()) {
+                    mensajeError("No hay nada escrito.");
+                }
+                else{
                 //Nos apoyamos del aux para llenar en la posicion correcta para instancia de Grupo Tarjeta
-                agregarGrupo(ingresarNombresGrupojTextField.getText());
-                grupoTarjeta[auxGrupoTarjeta] = new GrupoTarjeta(ingresarNombresGrupojTextField.getText(), colorTarjetas);
+                agregarGrupo(ingresarNombresGrupojTextField.getText().trim());
+                grupoTarjeta[auxGrupoTarjeta] = new GrupoTarjeta(ingresarNombresGrupojTextField.getText().trim(), colorTarjetas);
 
                 //Reinicio eleccion color y su panel
                 ingresarNombresGrupojTextField.setText("");
                 ingresarNombresGrupojTextField.requestFocus();
                 
                 auxGrupoTarjeta++;
+                }
             } else {
                 mensajeError("No has seleccionado, ningun color para el grupo de tarjetas");
             }
@@ -434,18 +441,6 @@ public class InformacionCasillas extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_añadirGrupoTarjetajButtonActionPerformed
 
-    private void llenarArregloGrupoTarjeta() {
-
-        nombreGruposTarjeta = new String[valorJSpinnerTarjetas()];
-
-        for (int i = 0; i < valorJSpinnerTarjetas(); i++) {
-            String nombreActual = grupoTarjetajComboBox.getItemAt(i);
-            nombreGruposTarjeta[i] = nombreActual;
-        }
-
-        crearTablero.setArregloNombreTarjetas(nombreGruposTarjeta);
-        crearTablero.setManejadores(manejadorPropiedades, manejadorTarjeta);
-    }
 
     private void grupoLugarjComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_grupoLugarjComboBoxItemStateChanged
         //Sincronizacion de ComboBox con TextField
@@ -506,6 +501,14 @@ public class InformacionCasillas extends javax.swing.JDialog {
         } while (colorTarjetas == null);
         colorSeleccionadoTarjetajPanel.setBackground(colorTarjetas);
     }//GEN-LAST:event_seletColorTarjetajButtonActionPerformed
+
+    private void ingresarGruposLugarjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ingresarGruposLugarjTextFieldKeyTyped
+        crearTablero.validarSoloLetras(evt, "Solo se admiten letras");
+    }//GEN-LAST:event_ingresarGruposLugarjTextFieldKeyTyped
+
+    private void ingresarNombresGrupojTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ingresarNombresGrupojTextFieldKeyTyped
+        crearTablero.validarSoloLetras(evt, "Solo se admiten letras");
+    }//GEN-LAST:event_ingresarNombresGrupojTextFieldKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

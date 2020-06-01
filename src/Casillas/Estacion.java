@@ -1,16 +1,17 @@
 package Casillas;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 
-public class Estacion extends Propiedad{
+public class Estacion extends Propiedad implements Serializable{
     
-    Color colorCasilla;
 
     public Estacion(int fila, int columna, String nombrePropiedad, int precioCompra,
             int porcentajeHipoteca, int costoEstancia, Color colorCasilla) {
         super(fila, columna, nombrePropiedad, precioCompra, porcentajeHipoteca, costoEstancia);
-        this.colorCasilla = colorCasilla;
+        super.color = colorCasilla;
+        tipoCasilla = "Estacion";
     }
 
  

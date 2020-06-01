@@ -5,24 +5,25 @@
  */
 package Diseño;
 
+import AdministradorGrupos.AdministradorGruposLugar;
+import AdministradorGrupos.AdministradorGruposTomeTarjeta;
 import AdministradorGrupos.GrupoTarjeta;
-import AdministradorGrupos.ManejadorPropiedades;
-import AdministradorGrupos.ManejadorTomeTarjeta;
+import AdministradorGrupos.ManejadorCasillasPropiedad;
 import Casillas.Carcel;
 import Casillas.Casilla;
 import Casillas.Inicio;
-import Casillas.Lugar;
 import Casillas.Neutro;
+import Casillas.Propiedad;
 import Casillas.TomaTarjeta;
 import Casillas.Trampa;
 import Juego.Tablero;
 import PilasYColas.ListaDECircular;
-import PilasYColas.ListaDECircularException;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -32,7 +33,7 @@ import javax.swing.SwingUtilities;
  *
  * @author joel
  */
-public class CrearTablero extends javax.swing.JFrame {
+public class CrearTablero extends javax.swing.JFrame implements Serializable {
 
     private ListaDECircular<Casilla> recorridoJuego;
     private Tablero nuevoTablero;
@@ -48,37 +49,46 @@ public class CrearTablero extends javax.swing.JFrame {
     private int tamY;
 
     private boolean pintarCasillas = true;
+    private CrearJuego crear;
+    private DiseñoRecorrido diseño;
     private InformacionCasillas infoCasillas;
     private InstanciaLugar instanciaLugar;
     private InstanciaServicioBasico instanciaServicio;
     private InstanciarEstacion instanciarEstacion;
     private FuncionesDiseño funciones;
-    private ManejadorPropiedades manejadorPropiedades;
-    private ManejadorTomeTarjeta manejadorTomeTarjeta;
+    private ManejadorCasillasPropiedad manejadorPropiedades;
+    private AdministradorGruposLugar adminGruposLugar;
+    private AdministradorGruposTomeTarjeta administradorTomeTarjeta;
     private String[] arregloNombreTarjetas;
     private String[] arregloNombreGruposLugar;
+    private boolean existenciaNeutro=false;
+    private boolean existenciaTrampa=false;
+    private boolean existenciaLugar=false;
+    private boolean existenciaServicio=false;
+    private boolean existenciaEstacion=false;
+    private int[] posicionCasillaRecorrido;
     private int costoPorEstacion;
     private int usoEstacion;
     private final Icon iconoError = new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MonopolyConfundido.png"));
 
-    public CrearTablero(int noFilas, int noColumnas, int porcentajeHipoteca) {
+    public CrearTablero(int noFilas, int noColumnas, int porcentajeHipoteca, CrearJuego crear) {
         numeroFilas = noFilas;
         numeroColumnas = noColumnas;
         this.porcentajeHipoteca = porcentajeHipoteca;
-        
+        this.crear = crear;
+
         initComponents();
+        this.setLocationRelativeTo(null);
         panelEdit1jPanel.setVisible(true);
         panelEdit2jPanel.setVisible(false);
-        this.setLocationRelativeTo(null);
+        diseño = new DiseñoRecorrido(numeroFilas,numeroColumnas);
         recorridoJuego = new ListaDECircular<>();
         tablero = new Casilla[numeroFilas][numeroColumnas];
-        nuevoTablero = new Tablero(numeroFilas, numeroColumnas, tablero, recorridoJuego);        
-        funciones = new FuncionesDiseño(numeroFilas, numeroColumnas,this);        
-        iniciarMatrix();
+        funciones = new FuncionesDiseño(numeroFilas, numeroColumnas, this);
+        iniciarMatriz();
     }
-    
 
-    public void iniciarMatrix() {
+    public void iniciarMatriz() {
         matrizBotones = new JButton[numeroFilas][numeroColumnas];
         panelBotonesjPanel.setLayout(new GridLayout(numeroFilas, numeroColumnas));
 
@@ -138,17 +148,29 @@ public class CrearTablero extends javax.swing.JFrame {
         for (int i = 0; i < numeroFilas; i++) {
             for (int j = 0; j < numeroColumnas; j++) {
                 if (e.getSource().equals(matrizBotones[i][j])) {
-                    matrizBotones[i][j].setBackground(java.awt.Color.black);
-                    matrizBotones[i][j].setName("1");
+                    
+                    diseño.definirCuadrante(i,j);
+                    if (esPrimeraCasilla()) {
+                        nuevaCasilla = new Casilla(i,j);
+                        matrizBotones[i][j].setBackground(java.awt.Color.green);
+                        nuevaCasilla.setPosicionRecorrido(posicionRecorrido);
+                        tablero[i][j] = nuevaCasilla;
+                        matrizBotones[i][j].setName("1");
+                        
+                        posicionRecorrido++;
+                        numeroCasillasDisponibles++;
+                    }
+                    else if(matrizBotones[i][j].getBackground() == java.awt.Color.white) {
+                        nuevaCasilla = new Casilla(i, j);
+                        nuevaCasilla.setPosicionRecorrido(posicionRecorrido);
+                        tablero[i][j] = nuevaCasilla;
 
-                    recorridoJuego.insertarAlFinal(nuevaCasilla = new Casilla(i, j));
-                    posicionRecorrido++;
-                    nuevaCasilla.setNombreCasilla(i + "," + j);
-                    numeroCasillasDisponibles++;
-//                    nuevaCasilla.setX(i);
-//                    nuevaCasilla.setY(j);
-                    System.out.println(nuevaCasilla.getNombreCasilla());
+                        matrizBotones[i][j].setBackground(java.awt.Color.black);
+                        matrizBotones[i][j].setName("1");
 
+                        posicionRecorrido++;
+                        numeroCasillasDisponibles++;
+                    }
                 }
             }
         }
@@ -161,20 +183,27 @@ public class CrearTablero extends javax.swing.JFrame {
                 for (int j = 0; j < numeroColumnas; j++) {
                     if (event.getSource().equals(matrizBotones[i][j])) {
 
-                        matrizBotones[i][j].setBackground(java.awt.Color.white);
-                        matrizBotones[i][j].setName("0");
-                        numeroCasillasDisponibles--;
-
-                        try {
-                            recorridoJuego.eliminarUltimoNodo();
-                        } catch (ListaDECircularException ex) {
-                            ex.getMessage();
+                        if (matrizBotones[i][j].getBackground() == java.awt.Color.black ||
+                            matrizBotones[i][j].getBackground() == java.awt.Color.green) {
+                            tablero[i][j] = null;
+                            
+                            posicionRecorrido--;
+                            numeroCasillasDisponibles--;
+                            
+                            matrizBotones[i][j].setBackground(java.awt.Color.white);
+                            matrizBotones[i][j].setName("0");
+                            
                         }
+
                     }
                 }
 
             }
         }
+    }
+    
+    private boolean esPrimeraCasilla(){
+        return posicionRecorrido==1;
     }
 
     /**
@@ -193,20 +222,25 @@ public class CrearTablero extends javax.swing.JFrame {
             }
         }
     }
-    
+
     /**
-     * Atrapa el nombre de grupo de tarjetas y lo pone en el comboBox para poder ser visualizado
+     * Atrapa el nombre de grupo de tarjetas y lo pone en el comboBox para poder
+     * ser visualizado
      */
     public void establecerNombreGrupoTarjetas() {
+        arregloNombreTarjetas = administradorTomeTarjeta.getNombresGrupos();
         if (arregloNombreTarjetas != null) {
             tipoTomaTarjetajComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(arregloNombreTarjetas));
         }
     }
 
-    private int minimoUnaPropiedad = 0;
 
-    private void establecerTipoCasilla(ActionEvent evento) {    
-        
+    /**
+     * Nos permite instanciar casillas en nuestra matriz tablero
+     * @param evento 
+     */
+    private void establecerTipoCasilla(ActionEvent evento) {
+
         for (int i = 0; i < numeroFilas; i++) {
             for (int j = 0; j < numeroColumnas; j++) {
                 if (evento.getSource().equals(matrizBotones[i][j])) {
@@ -224,6 +258,7 @@ public class CrearTablero extends javax.swing.JFrame {
                         matrizBotones[i][j].setBackground(Color.white);
                         nuevaCasilla = new Neutro(i, j);
                         tablero[i][j] = nuevaCasilla;
+                        existenciaNeutro=true;
 
                     } else if (tipoCasillajComboBox.getSelectedItem().toString().equals("Trampa")) {
                         String castigo = (String) JOptionPane.showInputDialog(this, "Selecciona el castigo", "Tipo de Castigo",
@@ -233,21 +268,24 @@ public class CrearTablero extends javax.swing.JFrame {
                             matrizBotones[i][j].setBackground(Color.red);
                             nuevaCasilla = new Trampa(i, j, castigo);
                             tablero[i][j] = nuevaCasilla;
+                            existenciaTrampa=true;
                         } else {
                             break;
                         }
 
                     } else if (tipoCasillajComboBox.getSelectedItem().toString().equals("Propiedad")) {
-                        
+
                         switch (tipoPropiedadjComboBox.getSelectedItem().toString()) {
                             case "Lugar":
-                                instanciaLugar = new InstanciaLugar(this, true, manejadorPropiedades, i ,j,porcentajeHipoteca);
+                                instanciaLugar = new InstanciaLugar(this, true, adminGruposLugar, i, j, porcentajeHipoteca);
                                 instanciaLugar.setLocationRelativeTo(this);
                                 instanciaLugar.setVisible(true);
                                 nuevaCasilla = instanciaLugar.getLugar();
                                 tablero[i][j] = nuevaCasilla;
                                 matrizBotones[i][j].setBackground(instanciaLugar.getColor());
+                                existenciaLugar=true;
                                 break;
+                                
                             case "Servicio Basico":
                                 instanciaServicio = new InstanciaServicioBasico(this, true, i, j, porcentajeHipoteca);
                                 instanciaServicio.setLocationRelativeTo(this);
@@ -256,7 +294,9 @@ public class CrearTablero extends javax.swing.JFrame {
                                 tablero[i][j] = nuevaCasilla;
                                 matrizBotones[i][j].setBackground(instanciaServicio.getColorServicio());
                                 matrizBotones[i][j].setText(instanciaServicio.getNombreServicio());
+                                existenciaServicio=true;
                                 break;
+                                
                             case "Estacion":
                                 instanciarEstacion = new InstanciarEstacion(this, true, i, j,
                                         porcentajeHipoteca, costoPorEstacion, usoEstacion);
@@ -266,19 +306,20 @@ public class CrearTablero extends javax.swing.JFrame {
                                 tablero[i][j] = nuevaCasilla;
                                 matrizBotones[i][j].setBackground(instanciarEstacion.getColorEstacion());
                                 matrizBotones[i][j].setText("Estacion");
+                                existenciaEstacion=true;
                                 break;
                             default:
                                 break;
                         }
-                    } else if (tipoCasillajComboBox.getSelectedItem().toString().equals("Toma una tarjeta")){
-           
-                        GrupoTarjeta[] grupoT = manejadorTomeTarjeta.getGrupoTarjeta();
+                    } else if (tipoCasillajComboBox.getSelectedItem().toString().equals("Toma una tarjeta")) {
+
+                        GrupoTarjeta[] grupoT = administradorTomeTarjeta.getGruposTarjeta();
                         GrupoTarjeta grupoTarjeta = grupoT[tipoTomaTarjetajComboBox.getSelectedIndex()];
-                        nuevaCasilla = new TomaTarjeta(i, j , grupoTarjeta);
+                        nuevaCasilla = new TomaTarjeta(i, j, grupoTarjeta);
                         tablero[i][j] = nuevaCasilla;
                         matrizBotones[i][j].setBackground(grupoT[tipoTomaTarjetajComboBox.getSelectedIndex()].getColorGrupo());
 
-                    } else if (tipoCasillajComboBox.getSelectedItem().toString().equals("Carcel")){
+                    } else if (tipoCasillajComboBox.getSelectedItem().toString().equals("Carcel")) {
                         matrizBotones[i][j].setBackground(Color.black);
                         nuevaCasilla = new Carcel(i, j);
                         tablero[i][j] = nuevaCasilla;
@@ -312,25 +353,54 @@ public class CrearTablero extends javax.swing.JFrame {
             tipoPropiedadjComboBox.setVisible(false);
         }
     }
-    
-    
-    public void mensajeError(String mensajeError){
+
+    public void mensajeError(String mensajeError) {
         JOptionPane.showMessageDialog(this, mensajeError,
-            "ALERTA", JOptionPane.INFORMATION_MESSAGE, iconoError);
+                "ALERTA", JOptionPane.INFORMATION_MESSAGE, iconoError);
     }
     
+    /**
+     * Permite que en los text field solo se puedan ingresar letras
+     * @param evt
+     * @param mensajeError 
+     */
+    public void validarSoloLetras(java.awt.event.KeyEvent evt, String mensajeError){
+        char validar = evt.getKeyChar();
 
-//    private void bloquearCasillas(ActionEvent evento){  
-//        int y = nuevaCasilla.getY();
-//        int j = 0, i = numeroFilas;
-//        if (evento.getSource().equals(matrizBotones[i][j])){
-//            for (i = numeroFilas-1; i >= 0; i--){
-//                while(j == y){
-//                    matrizBotones[i][j].setEnabled(false);
-//                }   
-//            }
-//        }
-//    }
+        if ((validar<'a' || validar>'z') && (validar<'A' || validar>'Z') && validar!=' '){
+            evt.consume();
+            mensajeError(mensajeError);
+       }
+
+    }
+    
+    private void obtenerNombrePosicion(){
+        posicionCasillaRecorrido = new int[posicionRecorrido-1];
+        int aux = 0;
+        
+        for (int i = 0; i <numeroFilas; i++) {
+            for (int j = 0; j < numeroColumnas; j++) {
+                if (tablero[i][j]!=null) {        
+                    posicionCasillaRecorrido[aux] = tablero[i][j].getPosicionRecorrido();
+                    aux++;
+                }
+            }
+        }
+    }
+    
+    private void ingresarNumeroPosicion(){
+        int aux = 0;
+        for (int i = 0; i < numeroFilas; i++) {
+            for (int j = 0; j < numeroColumnas; j++) {
+                if (tablero[i][j] instanceof Casilla) {
+                    tablero[i][j].setPosicionRecorrido(posicionCasillaRecorrido[aux]);
+                    aux++;
+                }
+            }
+        }
+    }
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -445,30 +515,42 @@ public class CrearTablero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nextjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextjButtonActionPerformed
-        if (numeroCasillasDisponibles<4) {
+        obtenerNombrePosicion();
+        if (numeroCasillasDisponibles < 4) {
             mensajeError("No hay suficientes casillas para jugar");
-        }
-        else{
-        transicionEditTablero();
-        infoCasillas = new InformacionCasillas(this, true); 
-        infoCasillas.setLocationRelativeTo(this);
-        infoCasillas.setCasillasDisponibles(numeroCasillasDisponibles-1);
-        infoCasillas.setVisible(true);
-        establecerNombreGrupoTarjetas();
-        funciones.despintarBotones(matrizBotones);
+        } else {
+            transicionEditTablero();
+            infoCasillas = new InformacionCasillas(this, true);
+            infoCasillas.setLocationRelativeTo(this);
+            infoCasillas.setCasillasDisponibles(numeroCasillasDisponibles - 1);
+            infoCasillas.setVisible(true);
+            establecerNombreGrupoTarjetas();
+            funciones.despintarBotones(matrizBotones);
         }
     }//GEN-LAST:event_nextjButtonActionPerformed
 
     private void FinishjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinishjButtonActionPerformed
         if (!funciones.existenciaInicio(tablero)) {
             mensajeError("No hay una casilla Inicio. Porfavor ingresela");
-        }else if(!funciones.existenciaPropiedad(tablero)){
+        } else if (!funciones.existenciaPropiedad(tablero)) {
             mensajeError("No hay ninguna propiedad. Porfavor coloque una");
-        }else{
+        } else {
+            ingresarNumeroPosicion();
+            funciones.obtenerPropiedades(tablero, posicionRecorrido);
+            funciones.insertarCasillasAlRecorrido(recorridoJuego);
+            funciones.colocarInicioAlPrincipio(recorridoJuego);
+            funciones.nombreTiposCasillaTablero(existenciaNeutro, existenciaTrampa,
+            existenciaLugar, existenciaServicio, existenciaEstacion);
+            funciones.setCasillasPropiedad();
+            funciones.imprimirPosicion(recorridoJuego);
+            Propiedad[] propiedades = funciones.getPropiedadesNuevas();
+            manejadorPropiedades = new ManejadorCasillasPropiedad(propiedades);
             
-            //CrearJuego juegoCreado = new CrearJuego();
-            //juegoCreado.setVisible(true);
-            //this.setVisible(false);   
+            
+            EditarTarjetas editar = new EditarTarjetas(recorridoJuego, tablero, administradorTomeTarjeta, adminGruposLugar, crear, this, funciones, manejadorPropiedades);
+            editar.setLocationRelativeTo(this);
+            editar.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_FinishjButtonActionPerformed
 
@@ -480,18 +562,17 @@ public class CrearTablero extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tipoPropiedadjComboBoxActionPerformed
 
-    
     public void setArregloNombreTarjetas(String[] arregloNombreTarjetas) {
-        this.arregloNombreTarjetas = arregloNombreTarjetas;   
+        this.arregloNombreTarjetas = arregloNombreTarjetas;
     }
-    
-    public void setArregloNombreGruposLugar(String[] arregloNombreGruposLugar){
+
+    public void setArregloNombreGruposLugar(String[] arregloNombreGruposLugar) {
         this.arregloNombreGruposLugar = arregloNombreGruposLugar;
     }
-    
-    public void setManejadores(ManejadorPropiedades manejadorPropiedades, ManejadorTomeTarjeta manejadorTomeTarjeta){
-        this.manejadorPropiedades = manejadorPropiedades;
-        this.manejadorTomeTarjeta = manejadorTomeTarjeta;
+
+    public void setAdministradores(AdministradorGruposLugar adminGruposLugar, AdministradorGruposTomeTarjeta administradorGrupos) {
+        this.adminGruposLugar = adminGruposLugar;
+        this.administradorTomeTarjeta = administradorGrupos;
     }
 
     public void setCostoPorEstacion(int costoPorEstacion) {

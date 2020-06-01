@@ -1,9 +1,10 @@
 package Casillas;
 
 import AdministradorGrupos.GrupoTarjeta;
+import java.io.Serializable;
 
 
-public class TomaTarjeta extends Casilla {
+public class TomaTarjeta extends Casilla implements Serializable{
     
     GrupoTarjeta grupoTarjeta;
     
