@@ -45,6 +45,7 @@ public class Jugar extends javax.swing.JFrame {
         this.menu = menu;
         construirTablero();
         cr.iniciarCronometro();
+        inicializarGifs();
 
     }
     public class Cronometro extends JFrame implements Runnable, ActionListener {    
@@ -180,49 +181,49 @@ public class Jugar extends javax.swing.JFrame {
                    case 1:
                        Image img = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara1.png")).getImage();
                        img = img.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       gifUnoDeTresjLabel.setIcon(new ImageIcon(img));
-                       gifUnoDeDosjLabel.setIcon(new ImageIcon(img));
-                       gifUnoDeUnojLabel.setIcon(new ImageIcon(img));
+                       jLabelUndeUno.setIcon(new ImageIcon(img));
+                       jLabelUnodeDos.setIcon(new ImageIcon(img));
+                       jLabelUnodeTres.setIcon(new ImageIcon(img));
                        bandera= false;
                     break;
                    case 2:
                        Image img2 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara2.png")).getImage();
                        img2 = img2.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       gifUnoDeTresjLabel.setIcon(new ImageIcon(img2));
-                       gifUnoDeDosjLabel.setIcon(new ImageIcon(img2));
-                       gifUnoDeUnojLabel.setIcon(new ImageIcon(img2));
+                       jLabelUndeUno.setIcon(new ImageIcon(img2));
+                       jLabelUnodeDos.setIcon(new ImageIcon(img2));
+                       jLabelUnodeTres.setIcon(new ImageIcon(img2));
                        bandera= false;
                     break;
                    case 3:
                        Image img3 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara3.png")).getImage();
                        img3 = img3.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       gifUnoDeTresjLabel.setIcon(new ImageIcon(img3));
-                       gifUnoDeDosjLabel.setIcon(new ImageIcon(img3));
-                       gifUnoDeUnojLabel.setIcon(new ImageIcon(img3));
+                       jLabelUndeUno.setIcon(new ImageIcon(img3));
+                       jLabelUnodeDos.setIcon(new ImageIcon(img3));
+                       jLabelUnodeTres.setIcon(new ImageIcon(img3));
                        bandera= false;
                     break;
                    case 4:
                        Image img4 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara4.png")).getImage();
                        img4 = img4.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       gifUnoDeTresjLabel.setIcon(new ImageIcon(img4));
-                       gifUnoDeDosjLabel.setIcon(new ImageIcon(img4));
-                       gifUnoDeUnojLabel.setIcon(new ImageIcon(img4));
+                       jLabelUndeUno.setIcon(new ImageIcon(img4));
+                       jLabelUnodeDos.setIcon(new ImageIcon(img4));
+                       jLabelUnodeTres.setIcon(new ImageIcon(img4));
                        bandera= false;
                     break;
                    case 5:
                        Image img5 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara5.png")).getImage();
                        img5 = img5.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       gifUnoDeTresjLabel.setIcon(new ImageIcon(img5));
-                       gifUnoDeDosjLabel.setIcon(new ImageIcon(img5));
-                       gifUnoDeUnojLabel.setIcon(new ImageIcon(img5));
+                       jLabelUndeUno.setIcon(new ImageIcon(img5));
+                       jLabelUnodeDos.setIcon(new ImageIcon(img5));
+                       jLabelUnodeTres.setIcon(new ImageIcon(img5));
                        bandera= false;
                     break;         
                    case 6:
                        Image img6 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara6.png")).getImage();
                        img6 = img6.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       gifUnoDeTresjLabel.setIcon(new ImageIcon(img6));
-                       gifUnoDeDosjLabel.setIcon(new ImageIcon(img6));
-                       gifUnoDeUnojLabel.setIcon(new ImageIcon(img6));
+                       jLabelUndeUno.setIcon(new ImageIcon(img6));
+                       jLabelUnodeDos.setIcon(new ImageIcon(img6));
+                       jLabelUnodeTres.setIcon(new ImageIcon(img6));
                        bandera= false;
                     break;   
                }
@@ -245,43 +246,43 @@ public class Jugar extends javax.swing.JFrame {
                    case 1:
                        Image img = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara1.png")).getImage();
                        img = img.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       gifDosDeDosjLabel.setIcon(new ImageIcon(img));
-                       gifDosDeTresjLabel.setIcon(new ImageIcon(img));
+                       jLabelDosdeDos.setIcon(new ImageIcon(img));
+                       jLabelDosdeTres.setIcon(new ImageIcon(img));
                        bandera= false;
                     break;
                    case 2:
                        Image img2 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara2.png")).getImage();
                        img2 = img2.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       gifDosDeDosjLabel.setIcon(new ImageIcon(img2));
-                       gifDosDeTresjLabel.setIcon(new ImageIcon(img2));
+                       jLabelDosdeDos.setIcon(new ImageIcon(img2));
+                       jLabelDosdeTres.setIcon(new ImageIcon(img2));
                        bandera= false;
                     break;
                    case 3:
                        Image img3 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara3.png")).getImage();
                        img3 = img3.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       gifDosDeDosjLabel.setIcon(new ImageIcon(img3));
-                       gifDosDeTresjLabel.setIcon(new ImageIcon(img3));
+                       jLabelDosdeDos.setIcon(new ImageIcon(img3));
+                       jLabelDosdeTres.setIcon(new ImageIcon(img3));
                        bandera= false;
                     break;
                    case 4:
                        Image img4 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara4.png")).getImage();
                        img4 = img4.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       gifDosDeDosjLabel.setIcon(new ImageIcon(img4));
-                       gifDosDeTresjLabel.setIcon(new ImageIcon(img4));
+                       jLabelDosdeDos.setIcon(new ImageIcon(img4));
+                       jLabelDosdeTres.setIcon(new ImageIcon(img4));
                        bandera= false;
                     break;
                    case 5:
                        Image img5 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara5.png")).getImage();
                        img5 = img5.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       gifDosDeDosjLabel.setIcon(new ImageIcon(img5));
-                       gifDosDeTresjLabel.setIcon(new ImageIcon(img5));
+                       jLabelDosdeDos.setIcon(new ImageIcon(img5));
+                       jLabelDosdeTres.setIcon(new ImageIcon(img5));
                        bandera= false;
                     break;         
                    case 6:
                        Image img6 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara6.png")).getImage();
                        img6 = img6.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       gifDosDeDosjLabel.setIcon(new ImageIcon(img6));
-                       gifDosDeTresjLabel.setIcon(new ImageIcon(img6));
+                       jLabelDosdeDos.setIcon(new ImageIcon(img6));
+                       jLabelDosdeTres.setIcon(new ImageIcon(img6));
                        bandera= false;
                     break;   
                }
@@ -303,37 +304,37 @@ public class Jugar extends javax.swing.JFrame {
                    case 1:
                        Image img = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara1.png")).getImage();
                        img = img.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                      gifTresDeTresjLabeljLabel.setIcon(new ImageIcon(img));
+                      jLabelTresdeTres.setIcon(new ImageIcon(img));
                        bandera= false;
                     break;
                    case 2:
                        Image img2 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara2.png")).getImage();
                        img2 = img2.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                        gifTresDeTresjLabeljLabel.setIcon(new ImageIcon(img2));
+                        jLabelTresdeTres.setIcon(new ImageIcon(img2));
                        bandera= false;
                     break;
                    case 3:
                        Image img3 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara3.png")).getImage();
                        img3 = img3.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                        gifTresDeTresjLabeljLabel.setIcon(new ImageIcon(img3));
+                        jLabelTresdeTres.setIcon(new ImageIcon(img3));
                        bandera= false;
                     break;
                    case 4:
                        Image img4 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara4.png")).getImage();
                        img4 = img4.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       gifTresDeTresjLabeljLabel.setIcon(new ImageIcon(img4));
+                       jLabelTresdeTres.setIcon(new ImageIcon(img4));
                        bandera= false;
                     break;
                    case 5:
                        Image img5 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara5.png")).getImage();
                        img5 = img5.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                        gifTresDeTresjLabeljLabel.setIcon(new ImageIcon(img5));
+                        jLabelTresdeTres.setIcon(new ImageIcon(img5));
                        bandera= false;
                     break;         
                    case 6:
                        Image img6 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara6.png")).getImage();
                        img6 = img6.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       gifTresDeTresjLabeljLabel.setIcon(new ImageIcon(img6));
+                       jLabelTresdeTres.setIcon(new ImageIcon(img6));
                        bandera= false;
                     break;   
                }
@@ -370,6 +371,30 @@ public class Jugar extends javax.swing.JFrame {
 
         tablerojPanel.setPreferredSize(new Dimension(130 * filas + 50, 195 * columnas + 50));
     }
+    
+    private void inicializarGifs(){
+       // int noDados = tab.getNumeroDados();
+        int noDados = 1;
+        switch (noDados) {
+            case 1:
+                unDadoGifjPanel.setVisible(true);
+                dosDadosGifjPanel.setVisible(false);
+                tresDadosGifjPanel.setVisible(false);
+                break;
+            case 2:
+                unDadoGifjPanel.setVisible(false);
+                dosDadosGifjPanel.setVisible(true);
+                tresDadosGifjPanel.setVisible(false);
+                break;
+            case 3:
+                unDadoGifjPanel.setVisible(false);
+                dosDadosGifjPanel.setVisible(false);
+                tresDadosGifjPanel.setVisible(true);
+                break;
+            default:
+                break;
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -395,11 +420,14 @@ public class Jugar extends javax.swing.JFrame {
         unDadoGifjPanel = new javax.swing.JPanel();
         gifUnoDeUnojLabel = new javax.swing.JLabel();
         tresDadosjPanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabelTresdeTres = new javax.swing.JLabel();
+        jLabelUnodeTres = new javax.swing.JLabel();
+        jLabelDosdeTres = new javax.swing.JLabel();
         dosDadosjPanel = new javax.swing.JPanel();
+        jLabelUnodeDos = new javax.swing.JLabel();
+        jLabelDosdeDos = new javax.swing.JLabel();
         unDadojPanel = new javax.swing.JPanel();
+        jLabelUndeUno = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         panelSuperiorjPanel = new javax.swing.JPanel();
@@ -525,42 +553,24 @@ public class Jugar extends javax.swing.JFrame {
 
         dadosjPanel.add(unDadoGifjPanel, "card4");
 
-        tresDadosjPanel.setLayout(new java.awt.BorderLayout());
-
-        jLabel2.setText("Dado 1");
-        tresDadosjPanel.add(jLabel2, java.awt.BorderLayout.LINE_START);
-
-        jLabel3.setText("jLabel3");
-        tresDadosjPanel.add(jLabel3, java.awt.BorderLayout.LINE_END);
-
-        jLabel4.setText("jLabel4");
-        tresDadosjPanel.add(jLabel4, java.awt.BorderLayout.CENTER);
+        tresDadosjPanel.setLayout(new java.awt.GridLayout(1, 3));
+        tresDadosjPanel.add(jLabelTresdeTres);
+        tresDadosjPanel.add(jLabelUnodeTres);
+        tresDadosjPanel.add(jLabelDosdeTres);
 
         dadosjPanel.add(tresDadosjPanel, "card5");
 
-        javax.swing.GroupLayout dosDadosjPanelLayout = new javax.swing.GroupLayout(dosDadosjPanel);
-        dosDadosjPanel.setLayout(dosDadosjPanelLayout);
-        dosDadosjPanelLayout.setHorizontalGroup(
-            dosDadosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-        dosDadosjPanelLayout.setVerticalGroup(
-            dosDadosjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 259, Short.MAX_VALUE)
-        );
+        dosDadosjPanel.setLayout(new java.awt.GridLayout(1, 2));
+        dosDadosjPanel.add(jLabelUnodeDos);
+        dosDadosjPanel.add(jLabelDosdeDos);
 
         dadosjPanel.add(dosDadosjPanel, "card6");
 
-        javax.swing.GroupLayout unDadojPanelLayout = new javax.swing.GroupLayout(unDadojPanel);
-        unDadojPanel.setLayout(unDadojPanelLayout);
-        unDadojPanelLayout.setHorizontalGroup(
-            unDadojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-        unDadojPanelLayout.setVerticalGroup(
-            unDadojPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 259, Short.MAX_VALUE)
-        );
+        unDadojPanel.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        unDadojPanel.setMinimumSize(new java.awt.Dimension(150, 150));
+        unDadojPanel.setPreferredSize(new java.awt.Dimension(150, 150));
+        unDadojPanel.setLayout(new java.awt.GridLayout(1, 1));
+        unDadojPanel.add(jLabelUndeUno);
 
         dadosjPanel.add(unDadojPanel, "card7");
 
@@ -692,24 +702,36 @@ public class Jugar extends javax.swing.JFrame {
         Dado1 dado1 = new Dado1();
         Dado2 dado2 = new Dado2();
         Dado3 dado3 = new Dado3();
-        int noDados = tab.getNumeroDados();
+        //int noDados = tab.getNumeroDados();
+        int noDados = 1;
+        
         if(noDados == 1){
-           unDadoGifjPanel.setVisible(true);
+           unDadoGifjPanel.setVisible(false);
+           unDadojPanel.setVisible(true);
            dosDadosGifjPanel.setVisible(false);
+           dosDadosjPanel.setVisible(false);
            tresDadosGifjPanel.setVisible(false);
+           tresDadosjPanel.setVisible(false);
            dado1.start(); 
         }
+        
         else if(noDados == 2){
-           unDadoGifjPanel.setVisible(true);
-           dosDadosGifjPanel.setVisible(true);
+           unDadoGifjPanel.setVisible(false);
+           unDadojPanel.setVisible(false);
+           dosDadosGifjPanel.setVisible(false);
+           dosDadosjPanel.setVisible(true);
            tresDadosGifjPanel.setVisible(false);
+           tresDadosjPanel.setVisible(false);
            dado1.start();
            dado2.start(); 
         }
         else if(noDados == 3){
-           unDadoGifjPanel.setVisible(true);
-           dosDadosGifjPanel.setVisible(true);
-           tresDadosGifjPanel.setVisible(true);
+           unDadoGifjPanel.setVisible(false);
+           unDadojPanel.setVisible(false);
+           dosDadosGifjPanel.setVisible(false);
+           dosDadosjPanel.setVisible(false);
+           tresDadosGifjPanel.setVisible(false);
+           tresDadosjPanel.setVisible(true);
            dado1.start();
            dado2.start(); 
            dado3.start();
@@ -741,10 +763,13 @@ public class Jugar extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelDosdeDos;
+    private javax.swing.JLabel jLabelDosdeTres;
+    private javax.swing.JLabel jLabelTresdeTres;
+    private javax.swing.JLabel jLabelUndeUno;
+    private javax.swing.JLabel jLabelUnodeDos;
+    private javax.swing.JLabel jLabelUnodeTres;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
