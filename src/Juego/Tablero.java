@@ -4,6 +4,7 @@ import AdministradorGrupos.*;
 import Casillas.*;
 import PilasYColas.ListaDECircular;
 import java.io.Serializable;
+import Diseño.CrearJuego.*;
 
 
 public class Tablero implements Serializable{

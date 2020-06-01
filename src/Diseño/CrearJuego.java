@@ -32,7 +32,7 @@ public class CrearJuego extends javax.swing.JFrame implements Serializable {
     private int limiteHoteles;
     private int dineroInicialJugador;
     private int dineroPorVuelta;
-    private int numeroDados;
+    public int numeroDados;
     private int numeroFilas;
     private int numeroColumnas;
     private int porcentajeHipoteca;
@@ -52,6 +52,7 @@ public class CrearJuego extends javax.swing.JFrame implements Serializable {
         //modificarTablerojPanel.setVisible(false);
 
     }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -189,6 +190,11 @@ public class CrearJuego extends javax.swing.JFrame implements Serializable {
         noDadosjComboBox.setFont(new java.awt.Font("Capture it", 1, 24)); // NOI18N
         noDadosjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
         noDadosjComboBox.setSelectedIndex(1);
+        noDadosjComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                noDadosjComboBoxActionPerformed(evt);
+            }
+        });
         ingresarInfojPanel.add(noDadosjComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 100, 40));
 
         crearTablerojButton.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
@@ -308,6 +314,10 @@ public class CrearJuego extends javax.swing.JFrame implements Serializable {
         validarSoloLetras(evt);
     }//GEN-LAST:event_nombreJuegojTextFieldKeyTyped
 
+    private void noDadosjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noDadosjComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_noDadosjComboBoxActionPerformed
+
     public void validarSoloLetras(java.awt.event.KeyEvent evt) {
         char validar = evt.getKeyChar();
 
@@ -343,6 +353,8 @@ public class CrearJuego extends javax.swing.JFrame implements Serializable {
         this.tablero = tablero;
         this.recorrido = recorrido;
     }
+    
+    
 
     /**
      * @param args the command line arguments

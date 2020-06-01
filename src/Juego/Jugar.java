@@ -1,7 +1,6 @@
 package Juego;
 
-
-import Dados.Dado;
+import Agregados.SuperClaseAcciones;
 import Main.MenuPrincipal;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,6 +9,17 @@ import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import Juego.Tablero.*;
 
 /**
  *
@@ -20,52 +30,347 @@ public class Jugar extends javax.swing.JFrame {
     private Dimension dimension;
     private Toolkit toolkit;
     private MenuPrincipal menu;
-    private final Icon confusedMan = new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ConfusedMonopolyMan.jpg"));;
+    private Tablero tab;
+    private final Icon confusedMan = new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ConfusedMonopolyMan.jpg"));
+    ;
     private JPanel[][] casillas;
     private int filas = 15;
     private int columnas = 15;
-    private Dado dados;
-    
+    Cronometro cr = new Cronometro();
+    static String TiempoCrono;
+
     public Jugar(MenuPrincipal menu) {
         initComponents();
         iniciarFrame();
         this.menu = menu;
         construirTablero();
-        
+        cr.iniciarCronometro();
+
+    }
+    public class Cronometro extends JFrame implements Runnable, ActionListener {    
+    public  int onoff = 0;
+    JLabel tiempo;
+    Thread hilo;
+    boolean cronometroActivo;
+    public Cronometro()
+    {
+        setTitle("Cronometro");
+        setSize( 75, 50 );
+        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        setLayout( new BorderLayout() );
+        setUndecorated(true);
+        //Etiqueta donde se colocara el tiempo 
+        jLabel5 = new JLabel( "00:00" );
+        jLabel5.setFont(new Font( Font.SERIF, Font.BOLD, 25));
+        jLabel5.setHorizontalAlignment( JLabel.CENTER );
+        jLabel5.setForeground( Color.BLUE );
+        jLabel5.setBackground( Color.green );
+        jLabel5.setOpaque( true );
+        add( jLabel5, BorderLayout.CENTER );
+
+
+        this.setLocation(1830, 42);
+       // setVisible( true );
+    }
+
+    @Override
+    public void run(){
+        Integer minutos = 0 , segundos = 0, milesimas = 0;
+        //min es minutos, seg es segundos y mil es milesimas de segundo
+        String min, seg;
+        try
+        {
+            //Mientras cronometroActivo sea verdadero entonces seguira
+            //aumentando el tiempo
+            while( cronometroActivo )
+            {
+                Thread.sleep( 4 );
+                //Incrementamos 4 milesimas de segundo
+                milesimas += 4;
+
+                //Cuando llega a 1000 osea 1 segundo aumenta 1 segundo
+                //y las milesimas de segundo de nuevo a 0
+                if( milesimas == 1000 )
+                {
+                    milesimas = 0;
+                    segundos += 1;
+                    //Si los segundos llegan a 60 entonces aumenta 1 los minutos
+                    //y los segundos vuelven a 0
+                    if( segundos == 60 )
+                    {
+                        segundos = 0;
+                        minutos++;
+                    }
+                }
+
+
+                if( minutos < 10 ) min = "0" + minutos;
+                else min = minutos.toString();
+                if( segundos < 10 ) seg = "0" + segundos;
+                else seg = segundos.toString();
+
+
+                //Colocamos en la etiqueta la informacion
+                jLabel5.setText( min + ":" + seg);
+            }
+        }catch(InterruptedException e){}
+        //Cuando se reincie se coloca nuevamente en 00:00:000
+        jLabel5.setText( "00:00" );
+    }
+
+    //Esto es para el boton iniciar y reiniciar
+    @Override
+    public void actionPerformed( ActionEvent evt ) {
+        Object o = evt.getSource();
+        if( o instanceof JButton )
+        {
+            JButton btn = (JButton)o;
+            if( btn.getText().equals("Iniciar") ){
+                if(onoff == 0){
+                   onoff = 1;
+                   iniciarCronometro();
+                }
+            }
+            if( btn.getText().equals("Reiniciar") ) {
+                if (onoff == 1){
+                   onoff = 0;
+                   pararCronometro();
+                }
+            }
+        }
+    }
+
+    //Iniciar el cronometro poniendo cronometroActivo 
+    //en verdadero para que entre en el while
+    public void iniciarCronometro() {
+        cronometroActivo = true;
+        hilo = new Thread( this );
+        hilo.start();
+    }
+
+    //Esto es para parar el cronometro
+    public void pararCronometro(){
+        cronometroActivo = false;
+    }
+
+    public String getTiempo() {
+        String tiempo1;
+        tiempo1 = jLabel5.getText();
+        return tiempo1;
     }
     
-    private void iniciarFrame(){
+    
+    
+}
+    
+    
+    private int caraActual;
+    
+    private class Dado1 extends Thread{
+        @Override
+        public void run(){
+            
+            
+           boolean bandera = true;
+           while(bandera){
+               Random r = new Random();
+               int dado = r.nextInt(6)+1;  
+               //System.out.println(valorDado);
+               switch(dado){
+                   case 1:
+                       Image img = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara1.png")).getImage();
+                       img = img.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                       gifUnoDeTresjLabel.setIcon(new ImageIcon(img));
+                       gifUnoDeDosjLabel.setIcon(new ImageIcon(img));
+                       gifUnoDeUnojLabel.setIcon(new ImageIcon(img));
+                       bandera= false;
+                    break;
+                   case 2:
+                       Image img2 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara2.png")).getImage();
+                       img2 = img2.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                       gifUnoDeTresjLabel.setIcon(new ImageIcon(img2));
+                       gifUnoDeDosjLabel.setIcon(new ImageIcon(img2));
+                       gifUnoDeUnojLabel.setIcon(new ImageIcon(img2));
+                       bandera= false;
+                    break;
+                   case 3:
+                       Image img3 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara3.png")).getImage();
+                       img3 = img3.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                       gifUnoDeTresjLabel.setIcon(new ImageIcon(img3));
+                       gifUnoDeDosjLabel.setIcon(new ImageIcon(img3));
+                       gifUnoDeUnojLabel.setIcon(new ImageIcon(img3));
+                       bandera= false;
+                    break;
+                   case 4:
+                       Image img4 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara4.png")).getImage();
+                       img4 = img4.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                       gifUnoDeTresjLabel.setIcon(new ImageIcon(img4));
+                       gifUnoDeDosjLabel.setIcon(new ImageIcon(img4));
+                       gifUnoDeUnojLabel.setIcon(new ImageIcon(img4));
+                       bandera= false;
+                    break;
+                   case 5:
+                       Image img5 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara5.png")).getImage();
+                       img5 = img5.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                       gifUnoDeTresjLabel.setIcon(new ImageIcon(img5));
+                       gifUnoDeDosjLabel.setIcon(new ImageIcon(img5));
+                       gifUnoDeUnojLabel.setIcon(new ImageIcon(img5));
+                       bandera= false;
+                    break;         
+                   case 6:
+                       Image img6 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara6.png")).getImage();
+                       img6 = img6.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                       gifUnoDeTresjLabel.setIcon(new ImageIcon(img6));
+                       gifUnoDeDosjLabel.setIcon(new ImageIcon(img6));
+                       gifUnoDeUnojLabel.setIcon(new ImageIcon(img6));
+                       bandera= false;
+                    break;   
+               }
+               
+           }
+        }
+    }
+  
+    
+    private class Dado2 extends Thread{
+        
+        @Override
+        public void run(){
+            boolean bandera = true;
+           while(bandera){
+               Random r = new Random();
+               int dado = r.nextInt(6)+1;  // Entre 0 y 5, más 1.
+               //System.out.println(valorDado);
+               switch(dado){
+                   case 1:
+                       Image img = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara1.png")).getImage();
+                       img = img.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                       gifDosDeDosjLabel.setIcon(new ImageIcon(img));
+                       gifDosDeTresjLabel.setIcon(new ImageIcon(img));
+                       bandera= false;
+                    break;
+                   case 2:
+                       Image img2 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara2.png")).getImage();
+                       img2 = img2.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                       gifDosDeDosjLabel.setIcon(new ImageIcon(img2));
+                       gifDosDeTresjLabel.setIcon(new ImageIcon(img2));
+                       bandera= false;
+                    break;
+                   case 3:
+                       Image img3 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara3.png")).getImage();
+                       img3 = img3.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                       gifDosDeDosjLabel.setIcon(new ImageIcon(img3));
+                       gifDosDeTresjLabel.setIcon(new ImageIcon(img3));
+                       bandera= false;
+                    break;
+                   case 4:
+                       Image img4 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara4.png")).getImage();
+                       img4 = img4.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                       gifDosDeDosjLabel.setIcon(new ImageIcon(img4));
+                       gifDosDeTresjLabel.setIcon(new ImageIcon(img4));
+                       bandera= false;
+                    break;
+                   case 5:
+                       Image img5 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara5.png")).getImage();
+                       img5 = img5.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                       gifDosDeDosjLabel.setIcon(new ImageIcon(img5));
+                       gifDosDeTresjLabel.setIcon(new ImageIcon(img5));
+                       bandera= false;
+                    break;         
+                   case 6:
+                       Image img6 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara6.png")).getImage();
+                       img6 = img6.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                       gifDosDeDosjLabel.setIcon(new ImageIcon(img6));
+                       gifDosDeTresjLabel.setIcon(new ImageIcon(img6));
+                       bandera= false;
+                    break;   
+               }
+               
+           }
+        }
+    }
+    
+    private class Dado3 extends Thread{
+        
+        @Override
+        public void run(){
+            boolean bandera = true;
+           while(bandera){
+               Random r = new Random();
+               int dado = r.nextInt(6)+1;  // Entre 0 y 5, más 1.
+               //System.out.println(valorDado);
+               switch(dado){
+                   case 1:
+                       Image img = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara1.png")).getImage();
+                       img = img.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                      gifTresDeTresjLabeljLabel.setIcon(new ImageIcon(img));
+                       bandera= false;
+                    break;
+                   case 2:
+                       Image img2 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara2.png")).getImage();
+                       img2 = img2.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                        gifTresDeTresjLabeljLabel.setIcon(new ImageIcon(img2));
+                       bandera= false;
+                    break;
+                   case 3:
+                       Image img3 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara3.png")).getImage();
+                       img3 = img3.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                        gifTresDeTresjLabeljLabel.setIcon(new ImageIcon(img3));
+                       bandera= false;
+                    break;
+                   case 4:
+                       Image img4 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara4.png")).getImage();
+                       img4 = img4.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                       gifTresDeTresjLabeljLabel.setIcon(new ImageIcon(img4));
+                       bandera= false;
+                    break;
+                   case 5:
+                       Image img5 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara5.png")).getImage();
+                       img5 = img5.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                        gifTresDeTresjLabeljLabel.setIcon(new ImageIcon(img5));
+                       bandera= false;
+                    break;         
+                   case 6:
+                       Image img6 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara6.png")).getImage();
+                       img6 = img6.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
+                       gifTresDeTresjLabeljLabel.setIcon(new ImageIcon(img6));
+                       bandera= false;
+                    break;   
+               }
+               
+           }
+        }
+    }
+
+    private void iniciarFrame() {
         toolkit = Toolkit.getDefaultToolkit();
-        dimension=toolkit.getScreenSize();
+        dimension = toolkit.getScreenSize();
         this.setSize(dimension);
     }
-    
-    private void construirTablero(){
+
+    private void construirTablero() {
         tablerojPanel.setLayout(null);
-        
+
         casillas = new JPanel[filas][columnas];
-        int x=1;
-        int y=1;
-        
+        int x = 1;
+        int y = 1;
+
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 casillas[i][j] = new JPanel();
                 casillas[i][j].setBackground(Color.blue);
                 casillas[i][j].setBounds(x, y, 130, 195);
-                
+
                 tablerojPanel.add(casillas[i][j]);
-                x+=132;
+                x += 132;
             }
-            x=1;
-            y+=197;
+            x = 1;
+            y += 197;
         }
-        
-        tablerojPanel.setPreferredSize(new Dimension(130*filas+50, 195*columnas+50));
+
+        tablerojPanel.setPreferredSize(new Dimension(130 * filas + 50, 195 * columnas + 50));
     }
 
-    
-
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -99,6 +404,7 @@ public class Jugar extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         panelSuperiorjPanel = new javax.swing.JPanel();
         ClockjPanel = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         ComponentesSuperioresjPanel = new javax.swing.JPanel();
         contairjButtonOutjPanel = new javax.swing.JPanel();
         outjButton = new javax.swing.JButton();
@@ -283,15 +589,25 @@ public class Jugar extends javax.swing.JFrame {
 
         ClockjPanel.setBackground(new java.awt.Color(153, 255, 153));
 
+        jLabel5.setBackground(new java.awt.Color(153, 255, 153));
+        jLabel5.setFont(new java.awt.Font("Serif", 1, 25)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 102, 255));
+
         javax.swing.GroupLayout ClockjPanelLayout = new javax.swing.GroupLayout(ClockjPanel);
         ClockjPanel.setLayout(ClockjPanelLayout);
         ClockjPanelLayout.setHorizontalGroup(
             ClockjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(ClockjPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                .addContainerGap())
         );
         ClockjPanelLayout.setVerticalGroup(
             ClockjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
+            .addGroup(ClockjPanelLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         panelSuperiorjPanel.add(ClockjPanel, java.awt.BorderLayout.LINE_END);
@@ -364,21 +680,47 @@ public class Jugar extends javax.swing.JFrame {
     private void outjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outjButtonActionPerformed
         int opcion = JOptionPane.showConfirmDialog(this, "Realmente desea salir del juego",
                 "Confirmar salida", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, confusedMan);
-        if (opcion==0) {
-           menu.setVisible(true);
-           this.setVisible(false); 
+        if (opcion == 0) {
+            menu.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_outjButtonActionPerformed
 
-    
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         //lanzar Dados
+        Dado1 dado1 = new Dado1();
+        Dado2 dado2 = new Dado2();
+        Dado3 dado3 = new Dado3();
+        int noDados = tab.getNumeroDados();
+        if(noDados == 1){
+           unDadoGifjPanel.setVisible(true);
+           dosDadosGifjPanel.setVisible(false);
+           tresDadosGifjPanel.setVisible(false);
+           dado1.start(); 
+        }
+        else if(noDados == 2){
+           unDadoGifjPanel.setVisible(true);
+           dosDadosGifjPanel.setVisible(true);
+           tresDadosGifjPanel.setVisible(false);
+           dado1.start();
+           dado2.start(); 
+        }
+        else if(noDados == 3){
+           unDadoGifjPanel.setVisible(true);
+           dosDadosGifjPanel.setVisible(true);
+           tresDadosGifjPanel.setVisible(true);
+           dado1.start();
+           dado2.start(); 
+           dado3.start();
+        }
+        
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel ClockjPanel;
+    public javax.swing.JPanel ClockjPanel;
     private javax.swing.JPanel ComponentesSuperioresjPanel;
     private javax.swing.JPanel containerJTextFieldjPanel;
     private javax.swing.JPanel containerTextTurnojPanel;
@@ -402,6 +744,7 @@ public class Jugar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

@@ -2,20 +2,19 @@ package Dados;
 
 import Agregados.SuperClaseAcciones;
 import java.awt.Image;
-import java.awt.Label;
 import java.util.Random;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 
 
 public class Dado extends SuperClaseAcciones{
     
     private int caraActual;
-    private Label labelCara;
     
         private class Dado1 extends Thread{
         
-        public void run(Label jLabel1){
+        public void run(JLabel jLabel1){
             
             
            boolean bandera = true;
@@ -27,37 +26,37 @@ public class Dado extends SuperClaseAcciones{
                    case 1:
                        Image img = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara1.png")).getImage();
                        img = img.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel1.setIcon(new ImageIcon(img));
+                       jLabel1.setIcon(new ImageIcon(img));
                        bandera= false;
                     break;
                    case 2:
                        Image img2 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara2.png")).getImage();
                        img2 = img2.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel1.setIcon(new ImageIcon(img2));
+                       jLabel1.setIcon(new ImageIcon(img2));
                        bandera= false;
                     break;
                    case 3:
                        Image img3 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara3.png")).getImage();
                        img3 = img3.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel1.setIcon(new ImageIcon(img3));
+                       jLabel1.setIcon(new ImageIcon(img3));
                        bandera= false;
                     break;
                    case 4:
                        Image img4 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara4.png")).getImage();
                        img4 = img4.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel1.setIcon(new ImageIcon(img4));
+                       jLabel1.setIcon(new ImageIcon(img4));
                        bandera= false;
                     break;
                    case 5:
                        Image img5 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara5.png")).getImage();
                        img5 = img5.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel1.setIcon(new ImageIcon(img5));
+                       jLabel1.setIcon(new ImageIcon(img5));
                        bandera= false;
                     break;         
                    case 6:
                        Image img6 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara6.png")).getImage();
                        img6 = img6.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel1.setIcon(new ImageIcon(img6));
+                       jLabel1.setIcon(new ImageIcon(img6));
                        bandera= false;
                     break;   
                }
@@ -68,8 +67,7 @@ public class Dado extends SuperClaseAcciones{
     
     private class Dado2 extends Thread{
         
-        @Override
-        public void run(){
+        public void run(JLabel jLabel2){
             boolean bandera = true;
            while(bandera){
                Random r = new Random();
@@ -79,37 +77,37 @@ public class Dado extends SuperClaseAcciones{
                    case 1:
                        Image img = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara1.png")).getImage();
                        img = img.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel2.setIcon(new ImageIcon(img));
+                       jLabel2.setIcon(new ImageIcon(img));
                        bandera= false;
                     break;
                    case 2:
                        Image img2 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara2.png")).getImage();
                        img2 = img2.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel2.setIcon(new ImageIcon(img2));
+                       jLabel2.setIcon(new ImageIcon(img2));
                        bandera= false;
                     break;
                    case 3:
                        Image img3 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara3.png")).getImage();
                        img3 = img3.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel2.setIcon(new ImageIcon(img3));
+                       jLabel2.setIcon(new ImageIcon(img3));
                        bandera= false;
                     break;
                    case 4:
                        Image img4 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara4.png")).getImage();
                        img4 = img4.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel2.setIcon(new ImageIcon(img4));
+                       jLabel2.setIcon(new ImageIcon(img4));
                        bandera= false;
                     break;
                    case 5:
                        Image img5 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara5.png")).getImage();
                        img5 = img5.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel2.setIcon(new ImageIcon(img5));
+                       jLabel2.setIcon(new ImageIcon(img5));
                        bandera= false;
                     break;         
                    case 6:
                        Image img6 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara6.png")).getImage();
                        img6 = img6.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel2.setIcon(new ImageIcon(img6));
+                       jLabel2.setIcon(new ImageIcon(img6));
                        bandera= false;
                     break;   
                }
@@ -120,8 +118,7 @@ public class Dado extends SuperClaseAcciones{
     
     private class Dado3 extends Thread{
         
-        @Override
-        public void run(){
+        public void run(JLabel jLabel3){
             boolean bandera = true;
            while(bandera){
                Random r = new Random();
@@ -131,37 +128,37 @@ public class Dado extends SuperClaseAcciones{
                    case 1:
                        Image img = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara1.png")).getImage();
                        img = img.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel3.setIcon(new ImageIcon(img));
+                       jLabel3.setIcon(new ImageIcon(img));
                        bandera= false;
                     break;
                    case 2:
                        Image img2 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara2.png")).getImage();
                        img2 = img2.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel3.setIcon(new ImageIcon(img2));
+                       jLabel3.setIcon(new ImageIcon(img2));
                        bandera= false;
                     break;
                    case 3:
                        Image img3 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara3.png")).getImage();
                        img3 = img3.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel3.setIcon(new ImageIcon(img3));
+                       jLabel3.setIcon(new ImageIcon(img3));
                        bandera= false;
                     break;
                    case 4:
                        Image img4 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara4.png")).getImage();
                        img4 = img4.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel3.setIcon(new ImageIcon(img4));
+                       jLabel3.setIcon(new ImageIcon(img4));
                        bandera= false;
                     break;
                    case 5:
                        Image img5 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara5.png")).getImage();
                        img5 = img5.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel3.setIcon(new ImageIcon(img5));
+                       jLabel3.setIcon(new ImageIcon(img5));
                        bandera= false;
                     break;         
                    case 6:
                        Image img6 = new ImageIcon(this.getClass().getResource("/Imagenes/DadoCara6.png")).getImage();
                        img6 = img6.getScaledInstance(63, 69,  java.awt.Image.SCALE_SMOOTH);
-                       //jLabel3.setIcon(new ImageIcon(img6));
+                       jLabel3.setIcon(new ImageIcon(img6));
                        bandera= false;
                     break;   
                }
