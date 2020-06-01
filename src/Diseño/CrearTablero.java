@@ -43,6 +43,7 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
     private int numeroFilas;
     private int numeroColumnas;
     private int porcentajeHipoteca;
+    private int precioSalirCarcel;
     private int numeroCasillasDisponibles = 0;
     private int posicionRecorrido = 1;
     private int tamX;
@@ -61,15 +62,16 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
     private AdministradorGruposTomeTarjeta administradorTomeTarjeta;
     private String[] arregloNombreTarjetas;
     private String[] arregloNombreGruposLugar;
-    private boolean existenciaNeutro=false;
-    private boolean existenciaTrampa=false;
-    private boolean existenciaLugar=false;
-    private boolean existenciaServicio=false;
-    private boolean existenciaEstacion=false;
+    private boolean existenciaNeutro = false;
+    private boolean existenciaTrampa = false;
+    private boolean existenciaLugar = false;
+    private boolean existenciaServicio = false;
+    private boolean existenciaEstacion = false;
     private int[] posicionCasillaRecorrido;
     private int costoPorEstacion;
     private int usoEstacion;
-    private final Icon iconoError = new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MonopolyConfundido.png"));
+    private final Icon ICONO_ERROR = new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MonopolyConfundido.png"));
+    public static final int LIMITE_NOMBRE = 25;
 
     public CrearTablero(int noFilas, int noColumnas, int porcentajeHipoteca, CrearJuego crear) {
         numeroFilas = noFilas;
@@ -81,7 +83,7 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
         this.setLocationRelativeTo(null);
         panelEdit1jPanel.setVisible(true);
         panelEdit2jPanel.setVisible(false);
-        diseño = new DiseñoRecorrido(numeroFilas,numeroColumnas);
+        diseño = new DiseñoRecorrido(numeroFilas, numeroColumnas);
         recorridoJuego = new ListaDECircular<>();
         tablero = new Casilla[numeroFilas][numeroColumnas];
         funciones = new FuncionesDiseño(numeroFilas, numeroColumnas, this);
@@ -148,19 +150,18 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
         for (int i = 0; i < numeroFilas; i++) {
             for (int j = 0; j < numeroColumnas; j++) {
                 if (e.getSource().equals(matrizBotones[i][j])) {
-                    
-                    diseño.definirCuadrante(i,j);
+
+                    diseño.definirCuadrante(i, j);
                     if (esPrimeraCasilla()) {
-                        nuevaCasilla = new Casilla(i,j);
+                        nuevaCasilla = new Casilla(i, j);
                         matrizBotones[i][j].setBackground(java.awt.Color.green);
                         nuevaCasilla.setPosicionRecorrido(posicionRecorrido);
                         tablero[i][j] = nuevaCasilla;
                         matrizBotones[i][j].setName("1");
-                        
+
                         posicionRecorrido++;
                         numeroCasillasDisponibles++;
-                    }
-                    else if(matrizBotones[i][j].getBackground() == java.awt.Color.white) {
+                    } else if (matrizBotones[i][j].getBackground() == java.awt.Color.white) {
                         nuevaCasilla = new Casilla(i, j);
                         nuevaCasilla.setPosicionRecorrido(posicionRecorrido);
                         tablero[i][j] = nuevaCasilla;
@@ -183,16 +184,16 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
                 for (int j = 0; j < numeroColumnas; j++) {
                     if (event.getSource().equals(matrizBotones[i][j])) {
 
-                        if (matrizBotones[i][j].getBackground() == java.awt.Color.black ||
-                            matrizBotones[i][j].getBackground() == java.awt.Color.green) {
+                        if (matrizBotones[i][j].getBackground() == java.awt.Color.black
+                                || matrizBotones[i][j].getBackground() == java.awt.Color.green) {
                             tablero[i][j] = null;
-                            
+
                             posicionRecorrido--;
                             numeroCasillasDisponibles--;
-                            
+
                             matrizBotones[i][j].setBackground(java.awt.Color.white);
                             matrizBotones[i][j].setName("0");
-                            
+
                         }
 
                     }
@@ -201,9 +202,9 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
             }
         }
     }
-    
-    private boolean esPrimeraCasilla(){
-        return posicionRecorrido==1;
+
+    private boolean esPrimeraCasilla() {
+        return posicionRecorrido == 1;
     }
 
     /**
@@ -234,10 +235,10 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
         }
     }
 
-
     /**
      * Nos permite instanciar casillas en nuestra matriz tablero
-     * @param evento 
+     *
+     * @param evento
      */
     private void establecerTipoCasilla(ActionEvent evento) {
 
@@ -252,23 +253,28 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
                             tablero[i][j] = nuevaCasilla;
                         } else {
                             JOptionPane.showMessageDialog(this, "No se pueden tener dos casillas inicio", "ERROR",
-                                    JOptionPane.INFORMATION_MESSAGE, iconoError);
+                                    JOptionPane.INFORMATION_MESSAGE, ICONO_ERROR);
                         }
                     } else if (tipoCasillajComboBox.getSelectedItem().toString().equals("Neutro")) {
                         matrizBotones[i][j].setBackground(Color.white);
                         nuevaCasilla = new Neutro(i, j);
                         tablero[i][j] = nuevaCasilla;
-                        existenciaNeutro=true;
+                        existenciaNeutro = true;
 
                     } else if (tipoCasillajComboBox.getSelectedItem().toString().equals("Trampa")) {
                         String castigo = (String) JOptionPane.showInputDialog(this, "Selecciona el castigo", "Tipo de Castigo",
                                 JOptionPane.PLAIN_MESSAGE, null, new String[]{"Perder Turno", "Ir a la carcel", "Pagar multa"},
                                 null);
                         if (castigo != null) {
+                            if (castigo.equals("Ir a la carcel")) {
+                                matrizBotones[i][j].setBackground(Color.black);
+                            }
+                            else{
                             matrizBotones[i][j].setBackground(Color.red);
                             nuevaCasilla = new Trampa(i, j, castigo);
                             tablero[i][j] = nuevaCasilla;
-                            existenciaTrampa=true;
+                            existenciaTrampa = true;
+                            }
                         } else {
                             break;
                         }
@@ -283,9 +289,9 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
                                 nuevaCasilla = instanciaLugar.getLugar();
                                 tablero[i][j] = nuevaCasilla;
                                 matrizBotones[i][j].setBackground(instanciaLugar.getColor());
-                                existenciaLugar=true;
+                                existenciaLugar = true;
                                 break;
-                                
+
                             case "Servicio Basico":
                                 instanciaServicio = new InstanciaServicioBasico(this, true, i, j, porcentajeHipoteca);
                                 instanciaServicio.setLocationRelativeTo(this);
@@ -294,9 +300,9 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
                                 tablero[i][j] = nuevaCasilla;
                                 matrizBotones[i][j].setBackground(instanciaServicio.getColorServicio());
                                 matrizBotones[i][j].setText(instanciaServicio.getNombreServicio());
-                                existenciaServicio=true;
+                                existenciaServicio = true;
                                 break;
-                                
+
                             case "Estacion":
                                 instanciarEstacion = new InstanciarEstacion(this, true, i, j,
                                         porcentajeHipoteca, costoPorEstacion, usoEstacion);
@@ -306,7 +312,7 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
                                 tablero[i][j] = nuevaCasilla;
                                 matrizBotones[i][j].setBackground(instanciarEstacion.getColorEstacion());
                                 matrizBotones[i][j].setText("Estacion");
-                                existenciaEstacion=true;
+                                existenciaEstacion = true;
                                 break;
                             default:
                                 break;
@@ -320,8 +326,13 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
                         matrizBotones[i][j].setBackground(grupoT[tipoTomaTarjetajComboBox.getSelectedIndex()].getColorGrupo());
 
                     } else if (tipoCasillajComboBox.getSelectedItem().toString().equals("Carcel")) {
+                        if (!funciones.existenciaCarcel(tablero)) {
+                            PrecioSalirCarcel precio = new PrecioSalirCarcel(this, true);
+                            precio.setLocationRelativeTo(this);
+                            precio.setVisible(true);
+                        }
                         matrizBotones[i][j].setBackground(Color.black);
-                        nuevaCasilla = new Carcel(i, j);
+                        nuevaCasilla = new Carcel(i, j, precioSalirCarcel);
                         tablero[i][j] = nuevaCasilla;
                     }
 
@@ -354,41 +365,29 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
         }
     }
 
-    public void mensajeError(String mensajeError) {
-        JOptionPane.showMessageDialog(this, mensajeError,
-                "ALERTA", JOptionPane.INFORMATION_MESSAGE, iconoError);
-    }
-    
     /**
-     * Permite que en los text field solo se puedan ingresar letras
-     * @param evt
-     * @param mensajeError 
+     * Nos permite agarrar el orden en que han sido seleccionadas las casillas,
+     * y ese orden va a ser el orden en el cual ira el recorrido.
      */
-    public void validarSoloLetras(java.awt.event.KeyEvent evt, String mensajeError){
-        char validar = evt.getKeyChar();
-
-        if ((validar<'a' || validar>'z') && (validar<'A' || validar>'Z') && validar!=' '){
-            evt.consume();
-            mensajeError(mensajeError);
-       }
-
-    }
-    
-    private void obtenerNombrePosicion(){
-        posicionCasillaRecorrido = new int[posicionRecorrido-1];
+    private void obtenerNumeroPosicion() {
+        posicionCasillaRecorrido = new int[posicionRecorrido - 1];
         int aux = 0;
-        
-        for (int i = 0; i <numeroFilas; i++) {
+
+        for (int i = 0; i < numeroFilas; i++) {
             for (int j = 0; j < numeroColumnas; j++) {
-                if (tablero[i][j]!=null) {        
+                if (tablero[i][j] != null) {
                     posicionCasillaRecorrido[aux] = tablero[i][j].getPosicionRecorrido();
                     aux++;
                 }
             }
         }
     }
-    
-    private void ingresarNumeroPosicion(){
+
+    /**
+     * Luego de guardarlas en un arreglo auxiliar. Se le asigna la posicion al
+     * arreglo de casillas con las casillas ya instanciadas.
+     */
+    private void ingresarNumeroPosicion() {
         int aux = 0;
         for (int i = 0; i < numeroFilas; i++) {
             for (int j = 0; j < numeroColumnas; j++) {
@@ -400,6 +399,30 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
         }
     }
 
+    /**
+     * Se genera una ventana emergente que recibe un mensaje del error cometido.
+     *
+     * @param mensajeError
+     */
+    public void mensajeError(String mensajeError) {
+        JOptionPane.showMessageDialog(this, mensajeError,
+                "ALERTA", JOptionPane.INFORMATION_MESSAGE, ICONO_ERROR);
+    }
+
+    /**
+     * Permite que en los text field solo se puedan ingresar letras
+     *
+     * @param evt
+     * @param mensajeError
+     */
+    public void validarSoloLetras(java.awt.event.KeyEvent evt, String mensajeError) {
+        char validar = evt.getKeyChar();
+
+        if ((validar < 'a' || validar > 'z') && (validar < 'A' || validar > 'Z') && validar != ' ') {
+            evt.consume();
+            mensajeError(mensajeError);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -515,7 +538,7 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nextjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextjButtonActionPerformed
-        obtenerNombrePosicion();
+        obtenerNumeroPosicion();
         if (numeroCasillasDisponibles < 4) {
             mensajeError("No hay suficientes casillas para jugar");
         } else {
@@ -534,19 +557,23 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
             mensajeError("No hay una casilla Inicio. Porfavor ingresela");
         } else if (!funciones.existenciaPropiedad(tablero)) {
             mensajeError("No hay ninguna propiedad. Porfavor coloque una");
+        } else if (!funciones.existenciaCarcel(tablero)) {
+            mensajeError("No hay ninguna carcel. Porfavor coloque una");
+        } else if (funciones.llenadoCasillas(matrizBotones, numeroCasillasDisponibles)) {
+            mensajeError("Todavia no estan seleccionadas todas las casillas");
         } else {
             ingresarNumeroPosicion();
             funciones.obtenerPropiedades(tablero, posicionRecorrido);
             funciones.insertarCasillasAlRecorrido(recorridoJuego);
             funciones.colocarInicioAlPrincipio(recorridoJuego);
+            funciones.ajustarPosicionCasillas(recorridoJuego);
             funciones.nombreTiposCasillaTablero(existenciaNeutro, existenciaTrampa,
-            existenciaLugar, existenciaServicio, existenciaEstacion);
+                    existenciaLugar, existenciaServicio, existenciaEstacion);
             funciones.setCasillasPropiedad();
             funciones.imprimirPosicion(recorridoJuego);
             Propiedad[] propiedades = funciones.getPropiedadesNuevas();
             manejadorPropiedades = new ManejadorCasillasPropiedad(propiedades);
-            
-            
+
             EditarTarjetas editar = new EditarTarjetas(recorridoJuego, tablero, administradorTomeTarjeta, adminGruposLugar, crear, this, funciones, manejadorPropiedades);
             editar.setLocationRelativeTo(this);
             editar.setVisible(true);
@@ -581,6 +608,10 @@ public class CrearTablero extends javax.swing.JFrame implements Serializable {
 
     public void setUsoEstacion(int usoEstacion) {
         this.usoEstacion = usoEstacion;
+    }
+    
+    public void setPrecioSalirCarcel(int precioSalirCarcel){
+        this.precioSalirCarcel = precioSalirCarcel;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

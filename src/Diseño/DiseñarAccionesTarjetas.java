@@ -587,7 +587,7 @@ public class DiseñarAccionesTarjetas extends javax.swing.JDialog implements Ser
         moverAConsejojTextArea.setColumns(20);
         moverAConsejojTextArea.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
         moverAConsejojTextArea.setRows(5);
-        moverAConsejojTextArea.setText("NOTA: Ingrese la palabra\nclave \"mas cercano\"\npara saltar a dicha casilla\no \"avance hasta\", para\nespecificar el lugar.\n");
+        moverAConsejojTextArea.setText("NOTA: Ingrese la palabra\nclave \"mas cercano\"\npara saltar a dicha casilla\no \"avance hasta\" o \"avance\na\", para especificar\nel lugar de destino.\n");
         consejoMoverAContainerjScrollPane.setViewportView(moverAConsejojTextArea);
 
         getContentPane().add(consejoMoverAContainerjScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 100, 250, 150));
@@ -639,15 +639,27 @@ public class DiseñarAccionesTarjetas extends javax.swing.JDialog implements Ser
         tarjetasDisponiblesjTextField.setText(Integer.toString(numeroTarjetasGrupo[grupoActualjComboBox.getSelectedIndex()]));
     }//GEN-LAST:event_grupoActualjComboBoxItemStateChanged
 
+    private boolean espaciosLibres(){
+        for (int i = 0; i < numeroTarjetasGrupo.length; i++) {
+            if (numeroTarjetasGrupo[i] > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private void checkjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkjButtonActionPerformed
+        if (espaciosLibres()) {
+            crear.mensajeError("Todavia hay espacios por llenar");
+        }
         this.setVisible(false);
     }//GEN-LAST:event_checkjButtonActionPerformed
 
     private void limitesJSpinnerCaminar(String setLimites) {
-        if (setLimites.contains("Felicidades")) {
+        if (setLimites.contains("Felicidades") || setLimites.contains("felicidades")) {
             noCasillasDesplazarsejSpinner.setEnabled(true);
             noCasillasDesplazarsejSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
-        } else if (setLimites.contains("Mala Suerte")) {
+        } else if (setLimites.contains("Mala Suerte") || setLimites.contains("mala suerte")) {
             noCasillasDesplazarsejSpinner.setEnabled(true);
             noCasillasDesplazarsejSpinner.setModel(new javax.swing.SpinnerNumberModel(-1, null, -1, 1));
         } else {
@@ -656,10 +668,10 @@ public class DiseñarAccionesTarjetas extends javax.swing.JDialog implements Ser
     }
 
     private void activarDestinos(String setLimites) {
-        if (setLimites.contains("proximo")) {
+        if (setLimites.contains("mas cercano")) {
             elegirDestinoTipoCasillajComboBox.setVisible(true);
             elegirDestinoPropiedadjComboBox.setVisible(false);
-        } else if (setLimites.contains("avance hasta")) {
+        } else if (setLimites.contains("avance hasta") || setLimites.contains("avance a")) {
             elegirDestinoTipoCasillajComboBox.setVisible(false);
             elegirDestinoPropiedadjComboBox.setVisible(true);
         } else {

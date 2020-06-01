@@ -5,8 +5,9 @@ import PilasYColas.ListaDECircular;
 import PilasYColas.ListaDECircularException;
 import PilasYColas.Nodo;
 import java.awt.Color;
+import java.io.Serializable;
 import javax.swing.JButton;
-public class FuncionesDiseño {
+public class FuncionesDiseño implements Serializable {
 
     CrearTablero crearTablero;
     private int numeroFilas;
@@ -15,7 +16,6 @@ public class FuncionesDiseño {
     Propiedad[] propiedadesNuevas;
     private Casilla[] casillasPorOrdenar;
     private String[] nombreTiposCasilla;
-    private String[] nombrePropiedades;
     
 
     public FuncionesDiseño(int numeroFilas, int numeroColumnas, CrearTablero crearTablero) {
@@ -44,7 +44,7 @@ public class FuncionesDiseño {
 
     /**
      * Cuando ocurre una transicion de panel, la idea es poner los paneles en
-     * color blanco
+     * color gris
      * @param matrizBotones
      */
     public void despintarBotones(JButton[][] matrizBotones) {
@@ -86,6 +86,32 @@ public class FuncionesDiseño {
             }
         }
         return false;
+    }
+    
+    public boolean existenciaCarcel(Casilla[][] tablero){
+        for (int i = 0; i < numeroFilas; i++) {
+            for (int j = 0; j < numeroColumnas; j++) {
+                if (tablero[i][j] instanceof Carcel) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean llenadoCasillas(JButton[][] matrizBotones, int casillasSeleccionadas){
+        int contadorCasillas = 0;
+        
+        for (int i = 0; i < numeroFilas; i++) {
+            for (int j = 0; j < numeroColumnas; j++) {
+                if (matrizBotones[i][j].isEnabled()) {
+                    if (matrizBotones[i][j].getBackground()!=Color.LIGHT_GRAY) {
+                        contadorCasillas++;
+                    }
+                }
+            }
+        }
+        return contadorCasillas<casillasSeleccionadas;
     }
 
     
@@ -136,7 +162,6 @@ public class FuncionesDiseño {
         }
     }
 
-    
     /**
      * Toma las casillas ya ordenedas por coordenada y define el recorrido
      * @param recorrido 
@@ -170,9 +195,18 @@ public class FuncionesDiseño {
         }
         
         //recorrido.imprimirContenido();
-        
-        
-
+    }
+    
+    public void ajustarPosicionCasillas(ListaDECircular<Casilla> recorrido){
+        for (int i = 0; i < recorrido.getUltimoIndice(); i++) {
+            try {
+                Nodo<Casilla> casilla= recorrido.obtenerNodoPorIndice(i);
+                casillasPorOrdenar[i] = casilla.getContenido();
+                casillasPorOrdenar[i].setPosicionRecorrido(i);
+            } catch (ListaDECircularException ex) {
+                crearTablero.mensajeError(ex.getMessage());
+            }
+        }
     }
     
     public void nombreTiposCasillaTablero(boolean neutro, boolean trampa,
@@ -302,7 +336,7 @@ public class FuncionesDiseño {
     public void imprimirPosicion(ListaDECircular<Casilla> recorrido){
         Propiedad prueba = propiedadesNuevas[0];
         try {
-            int a = recorrido.posicionListaPorNodo(prueba);
+            int a = recorrido.posicionNodoObjetivo(prueba);
             System.out.println(a);
         } catch (ListaDECircularException ex) {
             ex.getMessage();

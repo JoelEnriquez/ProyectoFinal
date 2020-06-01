@@ -7,13 +7,14 @@ package Diseño;
 
 import Casillas.Estacion;
 import java.awt.Color;
+import java.io.Serializable;
 import javax.swing.JColorChooser;
 
 /**
  *
  * @author joel
  */
-public class InstanciarEstacion extends javax.swing.JDialog {
+public class InstanciarEstacion extends javax.swing.JDialog implements Serializable{
 
     private CrearTablero crearTablero;
     private int fila;
@@ -74,12 +75,17 @@ public class InstanciarEstacion extends javax.swing.JDialog {
         getContentPane().add(textoPropiedadesEstacionjLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 500, 70));
 
         nombreEstacionjTextField.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+        nombreEstacionjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreEstacionjTextFieldKeyTyped(evt);
+            }
+        });
         getContentPane().add(nombreEstacionjTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 290, 60));
 
         panelContTextColorEstacionjPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(221, 221, 221));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Color de Estacion");
         jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         panelContTextColorEstacionjPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 320, 60));
@@ -87,7 +93,7 @@ public class InstanciarEstacion extends javax.swing.JDialog {
         getContentPane().add(panelContTextColorEstacionjPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 340, 80));
 
         textoNombreEstacionjLabel.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        textoNombreEstacionjLabel.setForeground(new java.awt.Color(221, 221, 221));
+        textoNombreEstacionjLabel.setForeground(new java.awt.Color(255, 255, 255));
         textoNombreEstacionjLabel.setText("Nombre de Estacion");
         textoNombreEstacionjLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -188,6 +194,13 @@ public class InstanciarEstacion extends javax.swing.JDialog {
         
         colorActualjPanel.setBackground(colorEstacion);
     }//GEN-LAST:event_pickColorjButtonActionPerformed
+
+    private void nombreEstacionjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreEstacionjTextFieldKeyTyped
+        if (nombreEstacionjTextField.getText().length()== CrearTablero.LIMITE_NOMBRE) {
+            evt.consume();
+            crearTablero.mensajeError("No pueden haber mas de 25 caracteres");
+        } 
+    }//GEN-LAST:event_nombreEstacionjTextFieldKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

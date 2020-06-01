@@ -1,6 +1,8 @@
 package Agregados;
 
+import java.io.Serializable;
 
-public class Ficha {
+
+public class Ficha implements Serializable {
     
 }

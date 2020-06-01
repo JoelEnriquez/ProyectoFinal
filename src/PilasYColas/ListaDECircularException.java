@@ -5,11 +5,13 @@
  */
 package PilasYColas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author joel
  */
-public class ListaDECircularException extends Exception {
+public class ListaDECircularException extends Exception implements Serializable{
 
     public ListaDECircularException(String message) {
         super(message);

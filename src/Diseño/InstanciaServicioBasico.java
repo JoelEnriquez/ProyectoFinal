@@ -8,13 +8,14 @@ package Diseño;
 import AdministradorGrupos.*;
 import Casillas.ServicioBasico;
 import java.awt.Color;
+import java.io.Serializable;
 import javax.swing.JColorChooser;
 
 /**
  *
  * @author joel
  */
-public class InstanciaServicioBasico extends javax.swing.JDialog {
+public class InstanciaServicioBasico extends javax.swing.JDialog implements Serializable {
 
     private CrearTablero crearTablero;
     private GrupoLugar[] grupoL;
@@ -77,6 +78,11 @@ public class InstanciaServicioBasico extends javax.swing.JDialog {
         nombreServiciojTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombreServiciojTextFieldActionPerformed(evt);
+            }
+        });
+        nombreServiciojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreServiciojTextFieldKeyTyped(evt);
             }
         });
         getContentPane().add(nombreServiciojTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 270, 50));
@@ -208,6 +214,13 @@ public class InstanciaServicioBasico extends javax.swing.JDialog {
         
         colorSeleccionadoServiciojPanel.setBackground(colorServicio);
     }//GEN-LAST:event_seletColorServiciojButtonActionPerformed
+
+    private void nombreServiciojTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreServiciojTextFieldKeyTyped
+        if (nombreServiciojTextField.getText().length()== CrearTablero.LIMITE_NOMBRE) {
+            evt.consume();
+            crearTablero.mensajeError("No pueden haber mas de 25 caracteres");
+        } 
+    }//GEN-LAST:event_nombreServiciojTextFieldKeyTyped
 
    
 

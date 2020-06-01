@@ -5,10 +5,12 @@
  */
 package Agregados;
 
+import java.io.Serializable;
+
 /**
  *
  * @author joel
  */
-public class Hotel {
+public class Hotel implements Serializable {
     
 }

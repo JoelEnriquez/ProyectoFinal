@@ -5,11 +5,13 @@
  */
 package PilasYColas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author joel
  */
-public class Pila<T> {
+public class Pila<T> implements Serializable {
 
     private int tamaño;
     private T[] pila;

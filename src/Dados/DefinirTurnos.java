@@ -5,10 +5,12 @@
  */
 package Dados;
 
+import java.io.Serializable;
+
 /**
  *
  * @author joel
  */
-public class DefinirTurnos {
+public class DefinirTurnos implements Serializable{
     
 }

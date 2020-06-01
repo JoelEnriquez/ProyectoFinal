@@ -8,12 +8,13 @@ package Diseño;
 import AdministradorGrupos.*;
 import Casillas.Lugar;
 import java.awt.Color;
+import java.io.Serializable;
 
 /**
  *
  * @author joel
  */
-public class InstanciaLugar extends javax.swing.JDialog {
+public class InstanciaLugar extends javax.swing.JDialog implements Serializable {
 
     private CrearTablero crearTablero;
     private AdministradorGruposLugar adminGruposLugar;
@@ -121,6 +122,11 @@ public class InstanciaLugar extends javax.swing.JDialog {
         ingresarNombreLugarjTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ingresarNombreLugarjTextFieldActionPerformed(evt);
+            }
+        });
+        ingresarNombreLugarjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ingresarNombreLugarjTextFieldKeyTyped(evt);
             }
         });
         getContentPane().add(ingresarNombreLugarjTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 210, 50));
@@ -263,6 +269,13 @@ public class InstanciaLugar extends javax.swing.JDialog {
     private void grupoLugarjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grupoLugarjComboBoxActionPerformed
         
     }//GEN-LAST:event_grupoLugarjComboBoxActionPerformed
+
+    private void ingresarNombreLugarjTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ingresarNombreLugarjTextFieldKeyTyped
+        if (ingresarNombreLugarjTextField.getText().length()== CrearTablero.LIMITE_NOMBRE) {
+            evt.consume();
+            crearTablero.mensajeError("No pueden haber mas de 25 caracteres");
+        } 
+    }//GEN-LAST:event_ingresarNombreLugarjTextFieldKeyTyped
 
    
 

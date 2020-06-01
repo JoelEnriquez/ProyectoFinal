@@ -5,18 +5,20 @@
  */
 package PilasYColas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author joel
  */
-public class Nodo<T> {
+public class Nodo<T> implements Serializable{
 
     private T contenido;
     private Nodo<T> anterior;
     private Nodo<T> siguiente;
 
    
-    public Nodo(T contenido, Nodo<T> anterior, Nodo<T> siguiente) {
+    public Nodo(T contenido, Nodo<T> anterior, Nodo<T> siguiente){
         this.contenido = contenido;
         this.anterior = anterior;
         this.siguiente = siguiente;
